@@ -15,8 +15,13 @@ class CreateSoldItemsTable extends Migration
     {
         Schema::create('sold_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
-            $table->integer('invoice_id');
+            
+            $table->integer('product_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('products');
+
+            $table->integer('invoice_id')->unsigned();;
+            $table->foreign('invoice_id')->references('id')->on('invoices');
+            
             $table->integer('quantity');
             $table->integer('selling_price');
 

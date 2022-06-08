@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Invoice;
-use App\Sold_items;
+use App\SoldItem;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -25,12 +25,6 @@ class ProductController extends Controller
         return view('internals/products', compact('products'));
 
     }
-    
-    // public function showProductList()
-    // {
-    //    $products = product::all();
-    //    return view('internals/products', compact('products'));
-    // }
 
     public function addNew()
     {      
@@ -48,6 +42,32 @@ class ProductController extends Controller
         $product->purchase_price = $r -> purchase_price;
         $product -> save(); 
         return redirect('/products');      
+    }
+
+
+    public function updateProduct($id)
+    {
+        $product = Product::find($id);
+        return view('/internals/update_product', compact('id'));
+    }
+
+    public function updateProductSave(Request $r , $id)
+    {
+        $product = Product::find($id);
+        $product->name = $r -> name; 
+        $product->sku = $r -> sku;
+        $product->description = $r -> description; 
+        $product->available_quantity = $r -> available_quantity; 
+        $product->purchase_price = $r -> purchase_price;
+        $product -> save(); 
+        
+        return redirect('/products');  
+    }
+
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id)->delete();
+        return redirect ('/products');
     }
 
     

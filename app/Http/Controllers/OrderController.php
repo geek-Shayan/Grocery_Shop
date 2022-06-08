@@ -4,20 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Invoice;
-use App\Sold_items;
+use App\SoldItem;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function order(Request $r)  
+    public function orderList()
     {
-        echo "hi order";
-        return view('internals/order');
-    }
+        // $product = new Product();
+        // $product->name= 'apple'; 
+        // $product->sku= '20KR';
+        // $product->description= 'fruit'; 
+        // $product->available_quantity = 80; 
+        // $product->purchase_price= 15;
+        // $product->save();
 
-    public function checkOrder(Request $r)  
+        //return redirect('internals/products');
+
+        $products = product::all();
+        return view('internals/order', compact('products'));
+
+    }
+    // public function order(Request $r)  
+    // {
+    //     echo "hi order";
+    //     return view('internals/order');
+    // }
+
+    public function checkOrder(Request $request)  
     {
-        echo "hi check order";
+        //echo "hi check order";
+        dd($request->all());
         //return view('internals/order');
     }
 

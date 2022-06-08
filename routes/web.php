@@ -21,20 +21,48 @@ Route::view('/', 'home');
 //Route::view('products', 'internals/products');
 Route::get('products', 'ProductController@productList');
 
-//NEW ITEM
+//NEW PRODUCT
 Route::post('products/new', 'ProductController@addNew');
 Route::post('products/new/save', 'ProductController@saveNew');
 
-//UPDATE
+//UPDATE PRODUCT
+Route::get('products/update/{id}', 'ProductController@updateProduct');
+Route::post('products/update/{id}', 'ProductController@updateProductSave');
+
+//DELETE PRODUCT
+Route::get('products/delete/{id}', 'ProductController@deleteProduct');
 
 //ORDER
 //Route::view('order', 'internals/order');
-Route::get('order', 'OrderController@order');
-Route::post('order/done', 'OrderController@checkOrder');
+Route::get('order', 'OrderController@orderList');
+Route::post('order', 'OrderController@checkOrder')->name('order.confirm');
 
 
 //INVOICES
 // Route::view('invoices', 'internals/invoices');
-Route::get('invoices', 'InvoiceController@invoicetList');
-
+Route::get('invoices', 'InvoiceController@invoiceList');
 //Route::view('products', 'internals/products');
+
+//NEW INVOICES
+Route::get('invoices/new', 'InvoiceController@addNew');
+Route::post('invoices/new/save', 'InvoiceController@saveNew');
+
+//UPDATE INVOICES
+Route::get('invoices/update/{id}', 'InvoiceController@updateInvoice');
+Route::post('invoices/update/{id}', 'InvoiceController@updateInvoiceSave');
+
+//DELETE INVOICES
+Route::get('invoices/delete/{id}', 'InvoiceController@deleteInvoice');
+
+
+
+
+
+
+
+//update
+//Route::get('students/edit/{id}', 'StudentController@findStudent');
+
+
+//delete
+// Route::get('students/delete/{id}', 'StudentController@deleteStudent');
