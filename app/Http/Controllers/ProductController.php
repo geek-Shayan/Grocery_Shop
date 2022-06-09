@@ -21,7 +21,7 @@ class ProductController extends Controller
 
         //return redirect('internals/products');
 
-        $products = product::all();
+        $products = Product::all();
         return view('internals/products', compact('products'));
 
     }

@@ -21,8 +21,11 @@ class OrderController extends Controller
 
         //return redirect('internals/products');
 
-        $products = product::all();
+        $products = Product::all();
+        //$orders = SoldItem::all();
+
         return view('internals/order', compact('products'));
+        // return view('internals/order', compact('products', 'orders'));
 
     }
     // public function order(Request $r)  
@@ -31,12 +34,102 @@ class OrderController extends Controller
     //     return view('internals/order');
     // }
 
-    public function checkOrder(Request $request)  
+    public function saveOrder(Request $request)  
     {
+
+        $cart = json_decode($request->cart, true);
+        // dd($cart);
+        // dd(count($cart));
+
+
+
+
+        // GET THE VALUES FOR SOLD ITEMS FROM ORDER AND CREATE INVOICE
+
         //echo "hi check order";
-        dd($request->all());
+        //dd($request->all());
         //return view('internals/order');
+
+
+        // $product = new Product();
+        $invoice = new Invoice();
+        $invoice -> save();
+
+
+        //$order->invoice_id = $request -> description; // create invoice and save
+        
+        //return redirect('/invoices/new'); 
+        // invoices/new
+        //return view('internals/new_invoice');
+
+        // $invoiceController =new InvoiceController();
+        // $order->invoice_id = $invoiceController->addNew();
+
+        // $cart->pluck('product_id');
+        // $cart->pluck('quantity');
+        // $cart->pluck('selling_price');
+
+//////PROBLEM
+
+        $total=0;
+
+        foreach ($cart as $item)
+        {
+            $order = new SoldItem();
+            $order->product_id = $item['product_id']; //product id loop
+
+            $order->invoice_id = $invoice->id;
+            $order->quantity = $item['quantity']; 
+            $order->selling_price = $item['selling_price'];
+            $order -> save();
+
+            $total += $order->quantity * $order->selling_price;
+
+        }
+
+////////////////
+       
+        $invoice -> total = $total;
+        $invoice -> save();
+
+        return redirect('/invoices/update/1'); 
+        // return view('/internals/update_product', compact('id'));
+
+
+        //////////////////////////
+        // $invoice->id
+        // $invoice->invoice_number
+        // $invoice->customer_email
+        // $invoice->total
+        // $invoice->payment_method
+        // $invoice->date
+        ////////////////////////////
+
+        // $invoice = Invoice::find($id);
+        // return view('/internals/update_invoice', compact('id'));
+
+        // $order->invoice_id = $invoice->id; 
+
+        
+        //return redirect('/invoices/new', compact('invoice')); 
+         
+
+        //$invoice = new Invoice();
+        // $invoice->invoice_number = $request -> invoice_number; 
+        // $invoice->customer_email = $request -> customer_email;
+        // $invoice->total = $request -> total; 
+        // $invoice->payment_method = $request -> payment_method; 
+        // $invoice->date = $request -> date;
+        // $invoice -> save(); 
+        // return redirect('/invoices');
+
+        // $order -> save(); 
+        // return redirect('/invoices/new'); 
+
+        // return view('/internals/update_product', compact('id'));
     }
+
+
 
 
 }

@@ -3,22 +3,9 @@
 
 @section('content')
     <h1>ORDER</h1>
-    {{-- @php
-    use App\Product;
-    use App\SoldItem;
-        $product= new Product();   
-        $sold_items = New SoldItem(); 
 
-    @endphp --}}
-    
-
-    <form align= "center" action={{ route('order.confirm' ), }} method="post">
-        {{@csrf_field()}}
-            {{-- <h6>NAME        :       <input type="text" name="name" id=""> <br></h6> 
-            <h6>SKU         :       <input type="text" name="sku" id=""> <br></h6>
-            <h6>DESCRIPTION :       <input type="text" name="description" id=""> <br></h6>
-            <h6>A_QUANTITY  :       <input type="number" name="available_quantity" id=""> <br></h6>
-            <h6>P_PRICE     :       <input type="number" name="purchase_price" id=""> <br></h6> --}}
+        <form align= "center" action={{ route('order.confirm') }} method="post" onsubmit="return processCart()">
+        @csrf
 
             <table align="center">
                 <tr>
@@ -35,78 +22,77 @@
                     </th>
                 </tr>
 
-                @foreach ($products as $product)
-                
-                <tr align="left">
+
+                    @foreach ($products as $product)
+
+                    <tr align="left">
                     
-                    <th >
-                        <input type="checkbox" id="{{$product->id}}" name="{{$product->name}}" value="{{$product->id}}">
-                        {{$product->name}} [{{$product->sku}}] {{$product->description}}
-                    </th>
+                        <th >
+                            <input type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
+                            {{$product->name}} [{{$product->sku}}] {{$product->description}}
+                        </th>
 
-                    <td >
-                        <input type="number" id="{{$product->id}}" name="{{$product->name}}" > 
-                        {{-- value="{{$product->available_quantity}}" --}}
-                    </td>
-                    
-                    <td>
-                        <input type="number" id="{{$product->id}}" name="{{$product->name}}" >
-                        {{-- value="{{$product->purchase_price}}" --}}
-                    </td>
+                        <td >
+                            <input type="number" id="quantity{{$product->id}}" value ="0" >
+                        </td>
+                        
+                        <td>
+                            <input type="number" id="selling_price{{$product->id}}" value="0">
+                        </td>
 
-
-                </tr>
-                @endforeach
-
+                    </tr>
+                    @endforeach
             </table>
 
-            {{-- @foreach ($products as $product)
-
-                <input type="checkbox" id="{{$product->id}}" name="{{$product->id}}" value="{{$product->id}}">
-                {{$product->name}} [{{$product->sku}}] {{$product->description}}
-                <input type="number" id="{{$product->id}}" name="{{$product->id}}" value="{{$product->available_quantity}}">
-                <br> --}}
-
-                {{-- <label for="{{$product->name}}">{{$product->name}}</label><br> --}}
-
-
-            {{-- <tr>
-                <td align= "center">{{$product->id}}</td>
-                <td align= "center">{{$product->name}}</td>
-                <td align= "center">{{$product->sku}}</td>
-                <td align= "center">{{$product->description}}</td>
-                <td align= "center">{{$product->available_quantity}}</td>
-                <td align= "center">{{$product->purchase_price}}</td>
-                <td>UPDATE</td>
-                <td>DELETE</td>
-                <td><a href="/products/update/{{$product->id}}">update</a></td>
-                <td><a href="/products/delete/{{$product->id}}">delete</a></td>
-    
-            </tr> --}}
-
-            {{-- @endforeach --}}
-            
-                {{-- <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                <label for="vehicle1"> I have a bike</label><br>
-                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
-                <label for="vehicle2"> I have a car</label><br>
-                <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
-                <label for="vehicle3"> I have a boat</label><br><br>
-                <input type="button" id="v" name="veh" value="Sub"> --}}
-
-{{--             
-                @foreach($product as $product)
-                
-                <input type="checkbox" id="id" name="name" value={{$product->id}} > {{$product->name}}
-               
-                @endforeach --}}
-            
-
-                
-             
-            
+            <input type="hidden" id="cart" name="cart">
             
             <br>
-            <input type="submit" onclick="alert('Order Comfirmed!')" value="Confirm">
+            <input type="submit" value="Confirm">
         </form>
+
+
+
+    <script>
+
+        function processCart()
+        {
+            let product_checkboxes = document.getElementsByClassName("product-checkboxes");
+
+            let cart = [];
+
+            // console.log(product_checkboxes);
+
+            for(let i=0; i<product_checkboxes.length; i++)
+            {
+                // console.log(product_checkboxes[i].checked);
+                if(product_checkboxes[i].checked)
+                {
+                    let obj = {
+                        product_id: product_checkboxes[i].id,
+                        quantity: document.getElementById("quantity" + product_checkboxes[i].id).value,
+                        selling_price: document.getElementById("selling_price" + product_checkboxes[i].id).value
+                    }
+
+                    cart.push(obj);
+                }
+            }
+
+            // console.log(cart);
+
+            if(cart.length > 0)
+            {
+                cart = JSON.stringify(cart);
+
+                document.getElementById("cart").value = cart;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+    </script>
+
 @endsection

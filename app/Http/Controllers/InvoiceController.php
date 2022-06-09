@@ -30,17 +30,18 @@ class InvoiceController extends Controller
        return view('internals/new_invoice');
     }
 
-    // public function saveNew(Request $r)
-    // {     
-    //     $product = new Product();
-    //     $product->name = $r -> name; 
-    //     $product->sku = $r -> sku;
-    //     $product->description = $r -> description; 
-    //     $product->available_quantity = $r -> available_quantity; 
-    //     $product->purchase_price = $r -> purchase_price;
-    //     $product -> save(); 
-    //     return redirect('/products');      
-    // }
+    public function saveNew(Request $request, $invoice)
+    {     
+        //echo "hi im conter"
+        //$invoice = new Invoice();
+        $invoice->invoice_number = $request -> invoice_number; 
+        $invoice->customer_email = $request -> customer_email;
+        $invoice->total = $request -> total; 
+        $invoice->payment_method = $request -> payment_method; 
+        $invoice->date = $request -> date;
+        $invoice -> save(); 
+        return redirect('/invoices');      
+    }
 
     public function updateInvoice($id)
     {

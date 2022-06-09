@@ -35,7 +35,7 @@ Route::get('products/delete/{id}', 'ProductController@deleteProduct');
 //ORDER
 //Route::view('order', 'internals/order');
 Route::get('order', 'OrderController@orderList');
-Route::post('order', 'OrderController@checkOrder')->name('order.confirm');
+Route::post('order', 'OrderController@saveOrder')->name('order.confirm');
 
 
 //INVOICES
@@ -44,7 +44,8 @@ Route::get('invoices', 'InvoiceController@invoiceList');
 //Route::view('products', 'internals/products');
 
 //NEW INVOICES
-Route::get('invoices/new', 'InvoiceController@addNew');
+//Route::get('invoices/new', 'InvoiceController@addNew');
+Route::post('invoices/new', 'InvoiceController@addNew');
 Route::post('invoices/new/save', 'InvoiceController@saveNew');
 
 //UPDATE INVOICES
