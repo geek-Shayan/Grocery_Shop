@@ -23,9 +23,12 @@
         <li class="nav-item">
             <a class="nav-link" href="/order">Order</a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
+            <a class="nav-link" href="/invoices/new">Order</a>
+        </li> --}}
+        {{-- <li class="nav-item">
             <a class="nav-link" href="/checkout">Checkout</a>
-        </li>
+        </li> --}}
        
     </ul>
 

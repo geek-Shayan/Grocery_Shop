@@ -4,10 +4,56 @@
 @section('content')
     <h1>ORDER</h1>
 
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 80%;
+        }
+        
+        th, td {
+          text-align: center;
+          padding: 5px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #D6EEEE;
+        }
+
+        tr:nth-child(1) {
+          background-color: #35947f;
+        }
+    </style>
+
         <form align= "center" action={{ route('order.confirm') }} method="post" onsubmit="return processCart()">
         @csrf
 
+            <table align= "center">
+                <tr align= "center">
+                    <th><th></th> </th>
+                </tr>
+      
+                <tr align= "left">
+                    <th>CUSTOMER EMAIL:</th> 
+                    <td><input type="text" name="customer_email" id=""> </td>
+                </tr>
+
+                <tr align= "left">
+                    <th>PAYMENT METHOD:</th>
+                    <td><input type="text" name="payment_method" id=""> </td>
+                </tr>
+                <tr align= "left">
+                    <th>DATE:</th>
+                    <td><input type="date" name="date" id=""> </td>
+                </tr>
+                    
+            </table>
+            
+            <br>
+
+            
+
             <table align="center">
+               
                 <tr>
                     <th>
                         PRODUCTS

@@ -13,18 +13,18 @@
                 <th><h6>ID:</h6></th>
                 <td><input type="number" name="id" id=""> </td>
             </tr> --}}
-            <tr align= "left">
+            {{-- <tr align= "left">
                 <th>INVOICE NO.:</th>
                 <td><input type="number" name="invoice_number" id=""> </td>
-            </tr>
+            </tr> --}}
             <tr align= "left">
                 <th>CUSTOMER EMAIL:</th> 
                 <td><input type="text" name="customer_email" id=""> </td>
             </tr>
-            <tr align= "left">
+            {{-- <tr align= "left">
                 <th>TOTAL:</th>
                 <td><input type="number" name="total" id=""> </td>
-            </tr>
+            </tr> --}}
             <tr align= "left">
                 <th>PAYMENT METHOD:</th>
                 <td><input type="text" name="payment_method" id=""> </td>

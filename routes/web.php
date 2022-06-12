@@ -38,32 +38,39 @@ Route::get('order', 'OrderController@orderList');
 Route::post('order', 'OrderController@saveOrder')->name('order.confirm');
 
 
+/////////////////////////////////
+//INVOICE ON ORDER
+// Route::get('order/invoices', 'InvoiceController@InvoiceAddOnOrder');
+// Route::post('order/invoices', 'InvoiceController@InvoiceSaveOnOrder');
+// InvoiceSaveOnOrder
+
+// return redirect('/order/invoices',compact('Iid')); 
+// InvoiceAddOnOrder
+///////////////////////////////
+
 //INVOICES
 // Route::view('invoices', 'internals/invoices');
 Route::get('invoices', 'InvoiceController@invoiceList');
-//Route::view('products', 'internals/products');
 
+//INVOICE VIEW INDIVIDUAL
+Route::get('invoices/view/{id}', 'InvoiceController@invoiceView');
+
+
+////////////////////////////////
 //NEW INVOICES
-//Route::get('invoices/new', 'InvoiceController@addNew');
-Route::post('invoices/new', 'InvoiceController@addNew');
-Route::post('invoices/new/save', 'InvoiceController@saveNew');
+//  Route::get('invoices/new', 'InvoiceController@addNew');
+//  //Route::post('invoices/new', 'InvoiceController@addNew');
+//  Route::post('invoices/new/save/{id}', 'InvoiceController@saveNew');
+// //  Route::post('invoices/new/save/{id}', 'InvoiceController@InvoiceSaveOnOrder');
+
+ 
 
 //UPDATE INVOICES
 Route::get('invoices/update/{id}', 'InvoiceController@updateInvoice');
 Route::post('invoices/update/{id}', 'InvoiceController@updateInvoiceSave');
+////////////////////////////////
 
 //DELETE INVOICES
 Route::get('invoices/delete/{id}', 'InvoiceController@deleteInvoice');
 
 
-
-
-
-
-
-//update
-//Route::get('students/edit/{id}', 'StudentController@findStudent');
-
-
-//delete
-// Route::get('students/delete/{id}', 'StudentController@deleteStudent');

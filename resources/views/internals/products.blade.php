@@ -13,9 +13,26 @@
             {{-- <input type="submit" value="refresh"> --}}
     </form>
 
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        th, td {
+          text-align: center;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #D6EEEE;
+        }
+        </style>
+
     <table align= "center">
         <tr>
-            <th>ID</th>
+            <th>SL NO.</th>
+            {{-- <th>ID</th> --}}
             <th>NAME</th>
             <th>SKU</th>
             <th>DESCRIPTION</th>
@@ -27,9 +44,14 @@
 
         </tr>
 
+        @php
+            $sl = 0;
+        @endphp
+
         @foreach ($products as $product)
         <tr>
-            <td align= "center">{{$product->id}}</td>
+            <td>{{++$sl}}</td>
+            {{-- <td align= "center">{{$product->id}}</td> --}}
             <td align= "center">{{$product->name}}</td>
             <td align= "center">{{$product->sku}}</td>
             <td align= "center">{{$product->description}}</td>

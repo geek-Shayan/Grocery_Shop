@@ -25,23 +25,42 @@ class InvoiceController extends Controller
         return view('internals/invoices', compact('invoices'));
     }
 
+    public function invoiceView($invoice_id)
+    {
+        $invoice = Invoice::find($invoice_id);
+ 
+        $sold_items = SoldItem::join('products', 'sold_items.product_id', '=', 'products.id')
+            ->select('products.name', 'products.sku', 'products.description', 'sold_items.quantity', 'sold_items.selling_price')
+            ->where('sold_items.invoice_id', '=', $invoice_id)
+            ->get();
+
+        // dd($orders);
+        // dd($invoice);
+        return view('/internals/view_invoice', compact('invoice', 'sold_items'));
+    }
+
     public function addNew()
     {      
        return view('internals/new_invoice');
     }
 
-    public function saveNew(Request $request, $invoice)
+    public function saveNew(Request $request)
     {     
         //echo "hi im conter"
-        //$invoice = new Invoice();
-        $invoice->invoice_number = $request -> invoice_number; 
+        $invoice = new Invoice();
+        $invoice -> save(); 
+        
+        $number =1000 + $invoice->id;
+        $invoice->invoice_number = $number;
+
         $invoice->customer_email = $request -> customer_email;
-        $invoice->total = $request -> total; 
+        //$invoice->total = $request -> total; 
         $invoice->payment_method = $request -> payment_method; 
         $invoice->date = $request -> date;
         $invoice -> save(); 
         return redirect('/invoices');      
     }
+
 
     public function updateInvoice($id)
     {
@@ -52,19 +71,50 @@ class InvoiceController extends Controller
     public function updateInvoiceSave(Request $r , $id)
     {
         $invoice = Invoice::find($id);
-        $invoice->invoice_number = $r -> invoice_number; 
+
+        $number =1000 + $invoice->id;
+        $invoice->invoice_number = $number;
+
         $invoice->customer_email = $r -> customer_email;
-        $invoice->total = $r -> total; 
+        // $invoice->total = $r -> total; 
         $invoice->payment_method = $r -> payment_method; 
         $invoice->date = $r -> date;
         $invoice -> save(); 
         
         return redirect('/invoices');  
+
     }
+
+    // public function InvoiceAddOnOrder($id)
+    // {
+    //     $invoice = Invoice::find($id);
+    //     return view('/internals/new_invoice', compact('id'));
+    // }
+
+    // public function InvoiceSaveOnOrder(Request $r , $id)
+    // {
+    //     $invoice = Invoice::find($id);
+    //     $invoice -> save(); 
+
+    //     $number =1000 + $invoice->id;
+    //     $invoice->invoice_number = $number;
+         
+    //     $invoice->customer_email = $r -> customer_email;
+    //     // $invoice->total = $r -> total; 
+    //     $invoice->payment_method = $r -> payment_method; 
+    //     $invoice->date = $r -> date;
+    //     $invoice -> save(); 
+        
+    //     return redirect('/orders');  
+    // }
 
     public function deleteInvoice($id)
     {
-        $invoice = Invoice::find($id)->delete();
+        // $sold_items = SoldItem::
+        $invoice = Invoice::find($id);
+        $invoice->soldItems()->delete();
+        $invoice->delete();
+
         return redirect ('/invoices');
     }
 }

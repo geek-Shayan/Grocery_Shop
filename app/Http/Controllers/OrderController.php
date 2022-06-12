@@ -11,6 +11,9 @@ class OrderController extends Controller
 {
     public function orderList()
     {
+        // $invoice = Invoice::find(6);
+        //dd($invoice->soldItems()->delete());
+
         // $product = new Product();
         // $product->name= 'apple'; 
         // $product->sku= '20KR';
@@ -36,25 +39,21 @@ class OrderController extends Controller
 
     public function saveOrder(Request $request)  
     {
-
+       
+        
         $cart = json_decode($request->cart, true);
         // dd($cart);
         // dd(count($cart));
-
-
-
-
         // GET THE VALUES FOR SOLD ITEMS FROM ORDER AND CREATE INVOICE
 
-        //echo "hi check order";
-        //dd($request->all());
-        //return view('internals/order');
-
-
-        // $product = new Product();
         $invoice = new Invoice();
-        $invoice -> save();
+        $number =1000 + $invoice->id;
+        $invoice->invoice_number = $number;
 
+        $invoice->customer_email = $request -> customer_email;
+        $invoice->payment_method = $request -> payment_method; 
+        $invoice->date = $request -> date;
+        $invoice -> save();
 
         //$order->invoice_id = $request -> description; // create invoice and save
         
@@ -92,7 +91,12 @@ class OrderController extends Controller
         $invoice -> total = $total;
         $invoice -> save();
 
-        return redirect('/invoices/update/1'); 
+        // $Iid = $invoice->id;
+
+
+        return redirect('/invoices'); 
+
+        // return view('/internals/new_invoice', compact('Iid'));
         // return view('/internals/update_product', compact('id'));
 
 
