@@ -86,11 +86,12 @@
                         </th>
 
                         <td >
-                            <input type="number" id="quantity{{$product->id}}" value ="0" >
+                            <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}"  >
                         </td>
                         
                         <td>
-                            <input type="number" id="selling_price{{$product->id}}" value="0">
+                            <input type="number" placeholder="{{$product->id}}" id="selling_price{{$product->id}}" > 
+                            {{-- value="0" --}}
                         </td>
 
                     </tr>

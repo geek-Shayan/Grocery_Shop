@@ -26,7 +26,7 @@ class OrderController extends Controller
 
         $products = Product::all();
         //$orders = SoldItem::all();
-
+// route('internals/order')
         return view('internals/order', compact('products'));
         // return view('internals/order', compact('products', 'orders'));
 

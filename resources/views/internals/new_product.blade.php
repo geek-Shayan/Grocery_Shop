@@ -10,6 +10,8 @@
             <h6>DESCRIPTION :       <input type="text" name="description" id=""> <br></h6>
             <h6>AVAILABLE QUANTITY  :       <input type="number" name="available_quantity" id=""> <br></h6>
             <h6>PURCHASE PRICE     :       <input type="number" name="purchase_price" id=""> <br></h6>
+            <h6>PROFIT RANGE  :       <input type="number" name="profit_range" id=""> <br></h6>
+            <h6>SELLING PRICE     :       <input type="number" name="selling_price" id=""> <br></h6>
             
             
             <br>
