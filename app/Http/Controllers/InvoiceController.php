@@ -39,6 +39,7 @@ class InvoiceController extends Controller
         return view('/internals/view_invoice', compact('invoice', 'sold_items'));
     }
 
+
     public function addNew()
     {      
        return view('internals/new_invoice');
@@ -65,7 +66,7 @@ class InvoiceController extends Controller
     public function updateInvoice($id)
     {
         $invoice = Invoice::find($id);
-        return view('/internals/update_invoice', compact('id'));
+        return view('/internals/update_invoice', compact('id','invoice'));
     }
 
     public function updateInvoiceSave(Request $r , $id)
@@ -84,29 +85,6 @@ class InvoiceController extends Controller
         return redirect('/invoices');  
 
     }
-
-    // public function InvoiceAddOnOrder($id)
-    // {
-    //     $invoice = Invoice::find($id);
-    //     return view('/internals/new_invoice', compact('id'));
-    // }
-
-    // public function InvoiceSaveOnOrder(Request $r , $id)
-    // {
-    //     $invoice = Invoice::find($id);
-    //     $invoice -> save(); 
-
-    //     $number =1000 + $invoice->id;
-    //     $invoice->invoice_number = $number;
-         
-    //     $invoice->customer_email = $r -> customer_email;
-    //     // $invoice->total = $r -> total; 
-    //     $invoice->payment_method = $r -> payment_method; 
-    //     $invoice->date = $r -> date;
-    //     $invoice -> save(); 
-        
-    //     return redirect('/orders');  
-    // }
 
     public function deleteInvoice($id)
     {

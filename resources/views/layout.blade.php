@@ -11,33 +11,33 @@
 
     @yield('styles')
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
-    <ul class="nav">
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/products">Products</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/invoices">Invoices</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/order">Order</a>
-        </li>
-        {{-- <li class="nav-item">
-            <a class="nav-link" href="/invoices/new">Order</a>
-        </li> --}}
-        {{-- <li class="nav-item">
-            <a class="nav-link" href="/checkout">Checkout</a>
-        </li> --}}
-       
-    </ul>
 
-</nav>
+<body>
 
     <div class ="Container">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
+            <ul class="nav">
+                <li class="nav-item" >
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/invoices">Invoices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/order">Order</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/insight">Insight</a>
+                </li>
+                
+            </ul>
+        
+        </nav>
+
         @yield('content')
     </div>
 

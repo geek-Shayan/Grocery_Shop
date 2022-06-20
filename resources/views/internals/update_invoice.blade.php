@@ -2,6 +2,27 @@
 
 @section('content')
     <h1>UPDATE INVOICE</h1>
+
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 35%;
+        }
+        
+        th {
+          text-align: left;
+          padding: 8px;
+        }
+        
+        td {
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #D6EEEE;
+        }
+    </style>
     
     <form align= "center" action="/invoices/update/{{$id}}" method="post">
         {{@csrf_field()}}
@@ -19,7 +40,7 @@
             </tr> --}}
             <tr align= "left">
                 <th>CUSTOMER EMAIL:</th> 
-                <td><input type="text" name="customer_email" id=""> </td>
+                <td><input type="text" placeholder="{{$invoice->customer_email}}" name="customer_email" id=""> </td>
             </tr>
             {{-- <tr align= "left">
                 <th>TOTAL:</th>
@@ -27,11 +48,14 @@
             </tr> --}}
             <tr align= "left">
                 <th>PAYMENT METHOD:</th>
-                <td><input type="text" name="payment_method" id=""> </td>
+                <td><input type="text" placeholder="{{$invoice->payment_method}}" name="payment_method" id=""> </td>
             </tr>
             <tr align= "left">
                 <th>DATE:</th>
-                <td><input type="date" name="date" id=""> </td>
+                <td>
+                    <input type="date" name="date" id=""> 
+                    <output name="date">{{$invoice->date}}</output>
+                </td>
             </tr>
                 
         </table>

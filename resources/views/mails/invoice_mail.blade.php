@@ -1,8 +1,14 @@
-@extends('layout')
+{{-- @component('mail')
+    #new invoice
+@endcomponent --}}
 
+{{-- <h1>hii invoice created </h1> --}}
 
-@section('content')
-    <h1>VIEW</h1>
+{{-- @extends('layout') --}}
+
+{{-- @section('content') --}}
+
+<h1>Invoice</h1>
 
     <style>
         table {
@@ -18,20 +24,28 @@
         tr:nth-child(even) {
           background-color: #D6EEEE;
         }
+
+        tr:nth-child(1) {
+          background-color: #35947f;
+        }
     </style>
 
-
-    <h6>INVOICE ID :        <output name="id" >{{$invoice->id}}</output></h6>
-    <h6>INVOICE NUMBER :    <output name="invoice_number" >{{$invoice->invoice_number}}</output></h6>
-    <h6>CUSTOMER EMAIL :    <output name="customer_email" >{{$invoice->customer_email}}</output></h6>
-    <h6>DATE :              <output name="date" >{{$invoice->date}}</output></h6>
-    <h6>PAYMENT METHOD :    <output name="payment_method" >{{$invoice->payment_method}}</output></h6>
-    <h6>GRAND TOTAL :       <output name="total" >{{$invoice->total}}</output></h6>
+    <h4>CUSTOMER INFORMATION</h4>
+    <h4>INVOICE ID :        <output name="id" >{{$invoice->id}}</output></h4>
+    <h4>INVOICE NUMBER :    <output name="invoice_number" >{{$invoice->invoice_number}}</output></h4>
+    <h4>CUSTOMER EMAIL :    <output name="customer_email" >{{$invoice->customer_email}}</output></h4>
+    <h4>DATE :              <output name="date" >{{$invoice->date}}</output></h4>
+    <h4>PAYMENT METHOD :    <output name="payment_method" >{{$invoice->payment_method}}</output></h4>
+    <h4>GRAND TOTAL :       <output name="total" >{{$invoice->total}}</output></h4>
 
 
     <table align="center">
         <tr>
-            <th>SERIAL NO.</th>
+            <th colspan="7"> ORDER LIST </th>
+        </tr>
+        
+        <tr>
+            <th>SL NO.</th>
             <th>SKU</th>
             <th>PRODUCTS</th>
             <th>DESCRIPTION</th>
@@ -39,6 +53,7 @@
             <th>PRICE</th>
             <th>TOTAL</th>
         </tr>
+
 
         @php
             $sl = 0;
@@ -93,8 +108,4 @@
                 <th><output name="total" >{{$invoice->total}}</output></th>
             </tr>
     
-    
     </table>
-
-
-@endsection

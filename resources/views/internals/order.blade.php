@@ -22,21 +22,21 @@
         tr:nth-child(1) {
           background-color: #35947f;
         }
+      
     </style>
 
-{{-- <form oninput="x.value=parseInt(a.value)">
-            <input type="range" id="a" value="50"> 
-            +<input type="number" id="b" value="25">
-             =<output name="x" for="a "></output>
+            {{-- <form oninput="x.value=parseInt(a.value)">
+                <input type="range" id="a" value="50"> 
+                +<input type="number" id="b" value="25">
+                =<output name="x" for="a "></output>
             </form> --}}
-
 
         <form align= "center" action={{ route('order.confirm') }} method="post" onsubmit="return processCart()">
         @csrf
-
+             
             <table align= "center">
-                <tr align= "center">
-                    <th><th></th> </th>
+                <tr>
+                    <th colspan="2"> CUSTOMER INFORMATION </th>
                 </tr>
       
                 <tr align= "left">
@@ -46,7 +46,17 @@
 
                 <tr align= "left">
                     <th>PAYMENT METHOD:</th>
-                    <td><input type="text" name="payment_method" id=""> </td>
+                    {{-- <td><input type="text" name="payment_method" id=""> </td> --}}
+                    <td>
+                        <select name="payment_method" id="">
+                            <option value="cash">Cash</option>
+                            <option value="card">Card</option>
+                            <option value="cheque">Cheque</option>
+                            <option value="bkash">Bkash</option>
+                        </select>
+                    </td>
+
+
                 </tr>
                 <tr align= "left">
                     <th>DATE:</th>
@@ -57,45 +67,35 @@
             
             <br>
 
-            
-
             <table align="center">
                
                 <tr>
-                    <th>
-                        PRODUCTS
-                    </th>
-
-                    <th>
-                        QUANTITY
-                    </th>
-
-                    <th>
-                        PRICE
-                    </th>
+                    <th>PRODUCTS</th>
+                    <th>QUANTITY</th>
+                    <th>PRICE</th>
                 </tr>
 
 
-                    @foreach ($products as $product)
+                @foreach ($products as $product)
 
-                    <tr align="left">
+                <tr>
+                
+                    <th >
+                        <input align="left" type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
+                        {{$product->name}} [{{$product->sku}}] {{$product->description}}
+                    </th>
+
+                    <td >
+                        <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}"  >
+                    </td>
                     
-                        <th >
-                            <input type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
-                            {{$product->name}} [{{$product->sku}}] {{$product->description}}
-                        </th>
+                    <td>
+                        <input type="number" placeholder="{{$product->selling_price}}" id="selling_price{{$product->id}}" > 
+                        {{-- value="0" --}}
+                    </td>
 
-                        <td >
-                            <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}"  >
-                        </td>
-                        
-                        <td>
-                            <input type="number" placeholder="{{$product->id}}" id="selling_price{{$product->id}}" > 
-                            {{-- value="0" --}}
-                        </td>
-
-                    </tr>
-                    @endforeach
+                </tr>
+                @endforeach
             </table>
 
             <input type="hidden" id="cart" name="cart">

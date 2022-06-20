@@ -11,7 +11,7 @@
 
 
     <h1>PRODUCTS</h1>
-{{-- {{ route('routeName') }} --}}
+
     <form align= "center" action="/products/new" method="post">
         {{@csrf_field()}}
             <input type="submit" value="New Item">
@@ -36,7 +36,7 @@
         }
     </style> --}}
 
-    <table align= "center" id = "datatable">
+    <table id = "datatable">
         <thead>
             <tr>
                 <th>SL NO.</th>
@@ -56,28 +56,55 @@
         <tbody>
             @php
                 $sl = 0;
+                $total_product = 0;
+                $total_purchase_price = 0;
+                $total_profit_range = 0;
+                $total_seling_price = 0;
             @endphp
 
             @foreach ($products as $product)
+            {{-- @php
+                $total_product = $total_product+1;
+                $total_purchase_price = $product->purchase_price* $product->available_quantity;
+                $total_profit_range = $product->profit_range* $product->available_quantity;
+                $total_seling_price = $product->selling_price* $product->available_quantity;
+            @endphp --}}
             <tr>
-                <td>{{++$sl}}</td>
+                <td align= "center">{{++$sl}}</td>
                 {{-- <td align= "center">{{$product->id}}</td> --}}
-                <td align= "center">{{$product->name}}</td>
-                <td align= "center">{{$product->sku}}</td>
-                <td align= "center">{{$product->description}}</td>
-                <td align= "center">{{$product->available_quantity}}</td>
-                <td align= "center">{{$product->purchase_price}}</td>
-                <td align= "center">{{$product->profit_range}}%</td>
-                <td align= "center">{{$product->selling_price}}</td>
+                <td align= "left">{{$product->name}}</td>
+                <td align= "left">{{$product->sku}}</td>
+                <td align= "left">{{$product->description}}</td>
+                <td align= "left">{{$product->available_quantity}} pcs</td>
+                <td align= "left">Tk {{$product->purchase_price}} </td>
+                <td align= "left">Tk {{$product->profit_range}} </td>
+                <td align= "left">Tk {{$product->selling_price}} </td>
                 {{-- <td>UPDATE</td>
                 <td>DELETE</td> --}}
                 <td><a href="/products/update/{{$product->id}}">update</a></td>
-                <td><a href="/products/delete/{{$product->id}}">delete</a></td>
+                <td><a  href="/products/delete/{{$product->id}}" onclick="alert('Product Deleted !')" >delete</a></td>
 
             </tr>
             @endforeach
-            
         </tbody>
+
+        
+        <tfoot>
+            
+            {{-- <tr>
+                <th> TOTAL</th>
+                <th>{{$total_product}}</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>TPP {{$total_purchase_price}}</th>
+                <th>TPR {{$total_profit_range}}</th>
+                <th>TSP {{$total_seling_price}}</th>
+                <th></th>
+                <th></th>
+            </tr> --}}
+        </tfoot>
+
     </table>
 
 @endsection

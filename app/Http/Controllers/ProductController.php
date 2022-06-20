@@ -17,6 +17,8 @@ class ProductController extends Controller
         // $product->description= 'fruit'; 
         // $product->available_quantity = 80; 
         // $product->purchase_price= 15;
+        // $product->profit_range = 5; 
+        // $product->selling_price = 20;
         // $product->save();
 
         //return redirect('internals/products');
@@ -40,6 +42,9 @@ class ProductController extends Controller
         $product->description = $r -> description; 
         $product->available_quantity = $r -> available_quantity; 
         $product->purchase_price = $r -> purchase_price;
+        $product->profit_range = $r -> profit_range; 
+        // $product->selling_price = $r -> selling_price;
+        $product->selling_price = $r -> purchase_price + $r -> profit_range;
         $product -> save(); 
         return redirect('/products');      
     }
@@ -48,7 +53,7 @@ class ProductController extends Controller
     public function updateProduct($id)
     {
         $product = Product::find($id);
-        return view('/internals/update_product', compact('id'));
+        return view('/internals/update_product', compact('id','product'));
     }
 
     public function updateProductSave(Request $r , $id)
@@ -59,6 +64,9 @@ class ProductController extends Controller
         $product->description = $r -> description; 
         $product->available_quantity = $r -> available_quantity; 
         $product->purchase_price = $r -> purchase_price;
+        $product->profit_range = $r -> profit_range; 
+        // $product->selling_price = $r -> selling_price;
+        $product->selling_price = $r -> purchase_price + $r -> profit_range;
         $product -> save(); 
         
         return redirect('/products');  

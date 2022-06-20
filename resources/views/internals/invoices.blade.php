@@ -39,16 +39,16 @@
 
         <thead>
             <tr>
-                <th align= "center">SL NO.</th>
-                {{-- <th align= "center">ID</th> --}}
-                <th align= "center">INVOICE NO.</th>
-                <th align= "center">CUSTOMER EMAIL</th>
-                <th align= "center">TOTAL</th>
-                <th align= "center">PAYMENT METHOD</th>
-                <th align= "center">DATE</th>
-                <th align= "center">VIEW</th>
-                <th align= "center">UPDATE</th>
-                <th align= "center">DELETE</th>
+                <th >SL NO.</th>
+                {{-- <th >ID</th> --}}
+                <th >INVOICE NO.</th>
+                <th >CUSTOMER EMAIL</th>
+                <th >TOTAL</th>
+                <th >PAYMENT METHOD</th>
+                <th >DATE</th>
+                <th >VIEW</th>
+                <th >UPDATE</th>
+                <th >DELETE</th>
             
             </tr>
         
@@ -64,15 +64,15 @@
                 <td align= "center">{{++$sl}}</td>
                 {{-- <td align= "center">{{$invoice->id}}</td> --}}
                 <td align= "center">{{$invoice->invoice_number}}</td>
-                <td align= "center">{{$invoice->customer_email}}</td>
-                <td align= "center">{{$invoice->total}}</td>
+                <td align= "left">{{$invoice->customer_email}}</td>
+                <td align= "left">Tk {{$invoice->total}}</td>
                 <td align= "center">{{$invoice->payment_method}}</td>
-                <td align= "center">{{$invoice->date}}</td>
+                <td align= "left">{{$invoice->date}}</td>
                 {{-- <td>UPDATE</td>
                 <td>DELETE</td> --}}
                 <td><a href="/invoices/view/{{$invoice->id}}">view</a></td>
                 <td><a href="/invoices/update/{{$invoice->id}}">update</a></td>
-                <td><a href="/invoices/delete/{{$invoice->id}}">delete</a></td>
+                <td><a href="/invoices/delete/{{$invoice->id}}" onclick="alert('Invoice Deleted !')">delete</a></td>
 
             </tr>
             @endforeach

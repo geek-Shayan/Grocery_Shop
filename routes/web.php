@@ -62,6 +62,7 @@ Route::get('invoices/view/{id}', 'InvoiceController@invoiceView');
 //  //Route::post('invoices/new', 'InvoiceController@addNew');
 //  Route::post('invoices/new/save/{id}', 'InvoiceController@saveNew');
 // //  Route::post('invoices/new/save/{id}', 'InvoiceController@InvoiceSaveOnOrder');
+///////////////////////////////
 
  
 
@@ -73,4 +74,8 @@ Route::post('invoices/update/{id}', 'InvoiceController@updateInvoiceSave');
 //DELETE INVOICES
 Route::get('invoices/delete/{id}', 'InvoiceController@deleteInvoice');
 
+
+
+//INSIGHT
+Route::view('insight', 'internals/insight');
 
