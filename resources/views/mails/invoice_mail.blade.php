@@ -1,13 +1,3 @@
-{{-- @component('mail')
-    #new invoice
-@endcomponent --}}
-
-{{-- <h1>hii invoice created </h1> --}}
-
-{{-- @extends('layouts.layout') --}}
-
-{{-- @section('content') --}}
-
 <h1>Invoice</h1>
 
     <style>
@@ -86,9 +76,9 @@
                     <output name="selling_price" >{{$sold_item->selling_price}}</output>
                 </th>
 
-                @php
-                    $total_as_product= $sold_item->selling_price * $sold_item->quantity;
-                @endphp
+            @php
+                $total_as_product= $sold_item->selling_price * $sold_item->quantity;
+            @endphp
 
                 <th>
                     <output name="total" >{{$total_as_product}}</output>
@@ -98,14 +88,14 @@
 
         @endforeach
 
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>GRAND TOTAL</th>
-                <th><output name="total" >{{$invoice->total}}</output></th>
-            </tr>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>GRAND TOTAL</th>
+            <th><output name="total" >{{$invoice->total}}</output></th>
+        </tr>
     
     </table>

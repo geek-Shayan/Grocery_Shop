@@ -55,6 +55,15 @@ Route::get('invoices', 'InvoiceController@invoiceList');
 //INVOICE VIEW INDIVIDUAL
 Route::get('invoices/view/{id}', 'InvoiceController@invoiceView');
 
+//INVOICE VIEW INDIVIDUAL PDF
+Route::get('invoices/view/pdf/{id}', 'PDFController@generatePDF');
+
+//INVOICE VIEW INDIVIDUAL PDF DOWNLOAD
+Route::get('invoices/view/pdf/download/{id}', 'PDFController@downloadPDF');
+
+//INVOICE VIEW INDIVIDUAL PDF MAIL
+// Route::view('invoices/view/pdf/email/{id}', 'pdfs/invoice_pdf');
+Route::get('invoices/view/pdf/email/{id}', 'PDFController@mailPDF');
 
 ////////////////////////////////
 //NEW INVOICES

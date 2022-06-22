@@ -2,6 +2,11 @@
 
 namespace App\Mail;
 
+
+
+use PDF;
+
+
 use App\Product;
 use App\Invoice;
 use App\SoldItem;
@@ -10,6 +15,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+
+// class HasPdfAttachment extends Mailable implements ShouldQueue
 
 class InvoiceMail extends Mailable
 {
@@ -23,8 +30,12 @@ class InvoiceMail extends Mailable
     
     public $invoice;
     public $sold_items;
+    public $date;
+    public $pdf;
     
-    public function __construct($invoice_id)
+
+    
+    public function __construct($invoice_id)  //, $pdf
     {
         $this->invoice = Invoice::find($invoice_id);
 
@@ -33,8 +44,22 @@ class InvoiceMail extends Mailable
             ->where('sold_items.invoice_id', '=', $invoice_id)
             ->get();
 
-        // dd($orders);
-        // dd($invoice);
+            // $this->pdf = base64_encode($pdf);
+            
+            
+            
+            ///////////////////////////
+            
+            $this->date = date('m/d/Y');
+            
+            $this->pdf = PDF::loadView('/pdfs/invoice_pdf', [
+                'date' => $this->date,
+                'invoice' => $this->invoice,
+                'sold_items' => $this->sold_items
+            ]);
+
+            //////////////////////////////////////
+
     }
 
     
@@ -46,7 +71,16 @@ class InvoiceMail extends Mailable
     public function build()
     {
         return $this->subject('Mail from grocery shop')
-                    ->view('mails.invoice_mail')->with('invoice', $this->invoice)->with('sold_items', $this->sold_items);
+                    ->view('mails.invoice_mail')
+                    ->with('invoice', $this->invoice)
+                    ->with('sold_items', $this->sold_items);
+
+                    /////////////////////////
+                    // ->attachData($this->pdf->output(), "Grocery Shop Invoice {$this->invoice->invoice_number}.pdf");
+                    // ->attachData(base64_decode($this->pdf));
+                    ////////////////////////
+
+                    
                     // ->view('mails.invoice_mail',compact('invoice', 'sold_items'));
         // return $this->view('view.mails.invoice_mail');
     }

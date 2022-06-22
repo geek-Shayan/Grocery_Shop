@@ -1,12 +1,13 @@
-@extends('layouts.layout')
-
-
-@section('content')
-
-    <div class="container-fluid bg-success">
-        <h3>VIEW</h3>    
-    </div>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grocery Shop Invoice pdf </title>
+</head>
+<body>
+    
+    <h1>INVOICE PDF</h1>
+    <p>Downloaded on {{ $date }}</p>
+    
     <style>
         table {
           border-collapse: collapse;
@@ -21,20 +22,28 @@
         tr:nth-child(even) {
           background-color: #D6EEEE;
         }
+
+        tr:nth-child(1) {
+          background-color: #35947f;
+        }
     </style>
 
-
-    <h6>INVOICE ID :        <output name="id" >{{$invoice->id}}</output></h6>
-    <h6>INVOICE NUMBER :    <output name="invoice_number" >{{$invoice->invoice_number}}</output></h6>
-    <h6>CUSTOMER EMAIL :    <output name="customer_email" >{{$invoice->customer_email}}</output></h6>
-    <h6>DATE :              <output name="date" >{{$invoice->date}}</output></h6>
-    <h6>PAYMENT METHOD :    <output name="payment_method" >{{$invoice->payment_method}}</output></h6>
-    <h6>GRAND TOTAL :       <output name="total" >{{$invoice->total}}</output></h6>
+    <h4>CUSTOMER INFORMATION</h4>
+    <h4>INVOICE ID :        <output name="id" >{{$invoice->id}}</output></h4>
+    <h4>INVOICE NUMBER :    <output name="invoice_number" >{{$invoice->invoice_number}}</output></h4>
+    <h4>CUSTOMER EMAIL :    <output name="customer_email" >{{$invoice->customer_email}}</output></h4>
+    <h4>DATE :              <output name="date" >{{$invoice->date}}</output></h4>
+    <h4>PAYMENT METHOD :    <output name="payment_method" >{{$invoice->payment_method}}</output></h4>
+    <h4>GRAND TOTAL :       <output name="total" >{{$invoice->total}}</output></h4>
 
 
     <table align="center">
         <tr>
-            <th>SERIAL NO.</th>
+            <th colspan="7"> ORDER LIST </th>
+        </tr>
+        
+        <tr>
+            <th>SL NO.</th>
             <th>SKU</th>
             <th>PRODUCTS</th>
             <th>DESCRIPTION</th>
@@ -42,6 +51,7 @@
             <th>PRICE</th>
             <th>TOTAL</th>
         </tr>
+
 
         @php
             $sl = 0;
@@ -53,37 +63,32 @@
                 <th >
                     <output name="sl" >{{++$sl}}</output>
                 </th>
-
                 <th >
                     <output name="sku" >{{$sold_item->sku}}</output>
                 </th>
-                
                 <th >
                     <output name="name" >{{$sold_item->name}}</output>
                 </th>
-
                 <th >
                     <output name="description" >{{$sold_item->description}}</output>
                 </th>
-
                 <th >
                     <output name="quantity" >{{$sold_item->quantity}}</output>
                 </th>
-                
                 <th>
                     <output name="selling_price" >{{$sold_item->selling_price}}</output>
                 </th>
 
-                @php
-                    $total_as_product= $sold_item->selling_price * $sold_item->quantity;
-                @endphp
+            @php
+                $total_as_product= $sold_item->selling_price * $sold_item->quantity;
+            @endphp
 
                 <th>
                     <output name="total" >{{$total_as_product}}</output>
                 </th>
 
             </tr>
-
+            
         @endforeach
 
         <tr>
@@ -98,15 +103,5 @@
     
     </table>
 
-    <br>
-    <br>
- 
-    <div class="container" align="center">
-        <a href="/invoices/view/pdf/{{$invoice->id}}" class="btn btn-primary">View PDF</a>
-        <a href="/invoices/view/pdf/download/{{$invoice->id}}" class="btn btn-primary">Download PDF</a>
-        <a href="/invoices/view/pdf/email/{{$invoice->id}}" class="btn btn-primary">Email PDF</a>
-    </div>
-
-
-
-@endsection
+</body>
+</html>
