@@ -1,15 +1,21 @@
-@extends('layout')
+@extends('layouts.layout')
+
 
 @section('content')
-    
-    <h1>HOME</h1>    
-    <br>
-    <h1 align="center">GROCERY SHOP</h1> 
-    <br>
 
-    {{-- <h3 align="center"><a href="/products">PRODUCTS</a></h3>
-    <h3 align="center"><a href="/invoices">INVOICES</a></h3> --}}
-    
-    <h3 align="center"><a href="/order">ORDER NOW !</a></h3>
+    {{-- <div class="container- bg-success"> --}}
+
+        <div class="container-fluid bg-success">
+            <h3>HOME</h3>    
+        </div>
+
+        @include('layouts.home_carousel')
+
+        {{-- <br>
+        <h1 align="center">GROCERY SHOP</h1> 
+        <br>
+        <h3 align="center"><a href="/order">ORDER NOW !</a></h3> --}}
+        
+    {{-- </div> --}}
 
 @endsection

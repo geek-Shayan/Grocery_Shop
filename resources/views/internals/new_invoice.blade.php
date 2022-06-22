@@ -1,7 +1,10 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('content')
-    <h1>NEW INVOICE</h1>
+
+    <div class="container-fluid bg-success">
+        <h3>NEW INVOICE</h3>    
+    </div>
     
     <form align= "center" action="/invoices/new/save/" method="post">
 

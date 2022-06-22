@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
@@ -9,103 +9,87 @@
 
 @section('content')
 
-
-    <h1>PRODUCTS</h1>
-
-    <form align= "center" action="/products/new" method="post">
-        {{@csrf_field()}}
-            <input type="submit" value="New Item">
-            {{-- <input type="button" onclick="alert('Hello World!')" value="Click Me!"> --}}
-
-            {{-- <input type="submit" value="refresh"> --}}
-    </form>
-
-    {{-- <style>
-        table {
-          border-collapse: collapse;
-          width: 100%;
-        }
+    <div class="container-fluid bg-success">
+        <h3>PRODUCTS</h3>
+    </div>
         
-        th, td {
-          text-align: center;
-          padding: 8px;
-        }
-        
-        tr:nth-child(even) {
-          background-color: #D6EEEE;
-        }
-    </style> --}}
+    <div class="container-fluid ">
+        <form align="center" action="/products/new" method="post">
+            {{@csrf_field()}}
+            <input type="submit" class="btn btn-block btn-dark " value=" New Item">
+        </form>
+    </div>
 
-    <table id = "datatable">
-        <thead>
-            <tr>
-                <th>SL NO.</th>
-                {{-- <th>ID</th> --}}
-                <th>NAME</th>
-                <th>SKU</th>
-                <th>DESCRIPTION</th>
-                <th>AVAILABLE QUANTITY</th>
-                <th>PURCHASE PRICE</th>
-                <th>PROFIT RANGE</th>
-                <th>SELLING PRICE</th>
-                <th>UPDATE</th>
-                <th>DELETE</th>
-            </tr>
-        </thead>
+    <div class="container-fluid ">
+        <table id = "datatable" class="table table-dark table-striped table-hover " >
+            <thead>
+                <tr>
+                    <th>SL NO.</th>
+                    {{-- <th>ID</th> --}}
+                    <th>NAME</th>
+                    <th>SKU</th>
+                    <th>DESCRIPTION</th>
+                    <th>AVAILABLE QUANTITY</th>
+                    <th>PURCHASE PRICE</th>
+                    <th>PROFIT RANGE</th>
+                    <th>SELLING PRICE</th>
+                    <th>UPDATE</th>
+                    <th>DELETE</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            @php
-                $sl = 0;
-                $total_product = 0;
-                $total_purchase_price = 0;
-                $total_profit_range = 0;
-                $total_seling_price = 0;
-            @endphp
+            <tbody>
+                @php
+                    $sl = 0;
+                    $total_product = 0;
+                    $total_purchase_price = 0;
+                    $total_profit_range = 0;
+                    $total_seling_price = 0;
+                @endphp
 
-            @foreach ($products as $product)
-            {{-- @php
-                $total_product = $total_product+1;
-                $total_purchase_price = $product->purchase_price* $product->available_quantity;
-                $total_profit_range = $product->profit_range* $product->available_quantity;
-                $total_seling_price = $product->selling_price* $product->available_quantity;
-            @endphp --}}
-            <tr>
-                <td align= "center">{{++$sl}}</td>
-                {{-- <td align= "center">{{$product->id}}</td> --}}
-                <td align= "left">{{$product->name}}</td>
-                <td align= "left">{{$product->sku}}</td>
-                <td align= "left">{{$product->description}}</td>
-                <td align= "left">{{$product->available_quantity}} pcs</td>
-                <td align= "left">Tk {{$product->purchase_price}} </td>
-                <td align= "left">Tk {{$product->profit_range}} </td>
-                <td align= "left">Tk {{$product->selling_price}} </td>
-                {{-- <td>UPDATE</td>
-                <td>DELETE</td> --}}
-                <td><a href="/products/update/{{$product->id}}">update</a></td>
-                <td><a  href="/products/delete/{{$product->id}}" onclick="alert('Product Deleted !')" >delete</a></td>
+                @foreach ($products as $product)
+                    {{-- @php
+                        $total_product = $total_product+1;
+                        $total_purchase_price = $product->purchase_price* $product->available_quantity;
+                        $total_profit_range = $product->profit_range* $product->available_quantity;
+                        $total_seling_price = $product->selling_price* $product->available_quantity;
+                    @endphp --}}
+                    <tr>
+                        <td align= "center">{{++$sl}}</td>
+                        {{-- <td align= "center">{{$product->id}}</td> --}}
+                        <td align= "left">{{$product->name}}</td>
+                        <td align= "left">{{$product->sku}}</td>
+                        <td align= "left">{{$product->description}}</td>
+                        <td align= "left">{{$product->available_quantity}} pcs</td>
+                        <td align= "left">Tk {{$product->purchase_price}} </td>
+                        <td align= "left">Tk {{$product->profit_range}} </td>
+                        <td align= "left">Tk {{$product->selling_price}} </td>
+                        {{-- <td>UPDATE</td>
+                        <td>DELETE</td> --}}
+                        <td><a href="/products/update/{{$product->id}}" class="btn btn-primary">Update</a></td>
+                        <td><a href="/products/delete/{{$product->id}}" class="btn btn-danger" onclick="alert('Product Deleted !')" >Delete</a></td>
 
-            </tr>
-            @endforeach
-        </tbody>
+                    </tr>
+                @endforeach
+            </tbody>
 
-        
-        <tfoot>
-            
-            {{-- <tr>
-                <th> TOTAL</th>
-                <th>{{$total_product}}</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>TPP {{$total_purchase_price}}</th>
-                <th>TPR {{$total_profit_range}}</th>
-                <th>TSP {{$total_seling_price}}</th>
-                <th></th>
-                <th></th>
-            </tr> --}}
-        </tfoot>
+            <tfoot>
+                {{-- <tr>
+                    <th> TOTAL</th>
+                    <th>{{$total_product}}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>TPP {{$total_purchase_price}}</th>
+                    <th>TPR {{$total_profit_range}}</th>
+                    <th>TSP {{$total_seling_price}}</th>
+                    <th></th>
+                    <th></th>
+                </tr> --}}
+            </tfoot>
 
-    </table>
+        </table>
+    </div>
 
 @endsection
 

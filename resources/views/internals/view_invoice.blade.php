@@ -1,8 +1,11 @@
-@extends('layout')
+@extends('layouts.layout')
 
 
 @section('content')
-    <h1>VIEW</h1>
+
+    <div class="container-fluid bg-success">
+        <h3>VIEW</h3>    
+    </div>
 
     <style>
         table {

@@ -4,7 +4,7 @@
 
 {{-- <h1>hii invoice created </h1> --}}
 
-{{-- @extends('layout') --}}
+{{-- @extends('layouts.layout') --}}
 
 {{-- @section('content') --}}
 

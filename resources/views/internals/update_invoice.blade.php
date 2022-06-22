@@ -1,7 +1,11 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('content')
-    <h1>UPDATE INVOICE</h1>
+
+    <div class="container-fluid bg-success">
+        <h3>UPDATE INVOICE</h3>    
+    </div>
+
 
     <style>
         table {

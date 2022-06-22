@@ -1,7 +1,9 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('content')
-    <h1>UPDATE PRODUCT</h1>
+    <div class="container-fluid bg-success">
+        <h3>UPDATE PRODUCT</h3>    
+    </div>
     
     <form align= "center" action="/products/update/{{$id}}" method="post">
         {{@csrf_field()}}

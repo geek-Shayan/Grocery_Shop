@@ -1,7 +1,10 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('content')
-    <h1>INSIGHT</h1>
+
+    <div class="container-fluid bg-success" >
+        <h3>INSIGHT</h3>
+    </div>
 
 
     <h6> gross profit</h6>

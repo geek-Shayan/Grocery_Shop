@@ -1,7 +1,10 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('content')
-    <h1 >NEW PRODUCT</h1>
+
+    <div class="container-fluid bg-success">
+        <h3>NEW PRODUCT</h3>    
+    </div>
     
     <form align= "center" action="/products/new/save" method="post" >
         {{@csrf_field()}}
@@ -28,7 +31,12 @@
             
             
             <br>
-            <input type="submit" onclick="alert('New Item Saved!')" value="Save New Item">
+            {{-- onclick="alert('New Item Saved!')" --}}
+            <input type="submit" name="submit"  value="Save New Item">
+            <div class="alert alert-info alert-dismissible fade show" >
+                <button type="button" for="submit" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Success!</strong> New Item Saved!
+            </div>
         </form>
 
 

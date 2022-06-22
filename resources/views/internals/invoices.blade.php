@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
@@ -7,78 +7,54 @@
 @endsection
 
 @section('content')
-    
-    <h1>INVOICES</h1>    
 
-    {{-- <form align= "center" action="/invoices" method="post">
-        {{@csrf_field()}}
-            <input type="submit" value="New Item">
-           
-            {{-- <input type="button" onclick="alert('Hello World!')" value="Click Me!"> --}}
+    <div class="container-fluid bg-success">
+        <h3>INVOICES</h3>    
+    </div>
 
-            {{-- <input type="submit" value="refresh">
-    </form>  --}} 
+    <div class="container-fluid">
+        <table id ="datatable" class="table table-dark table-striped table-hover ">
 
-    {{-- <style>
-        table {
-          border-collapse: collapse;
-          width: 100%;
-        }
-        
-        th, td {
-          text-align: center;
-          padding: 8px;
-        }
-        
-        tr:nth-child(even) {
-          background-color: #D6EEEE;
-        }
-        </style> --}}
+            <thead>
+                <tr>
+                    <th >SL NO.</th>
+                    {{-- <th >ID</th> --}}
+                    <th >INVOICE NO.</th>
+                    <th >CUSTOMER EMAIL</th>
+                    <th >TOTAL</th>
+                    <th >PAYMENT METHOD</th>
+                    <th >DATE</th>
+                    <th >VIEW</th>
+                    <th >UPDATE</th>
+                    <th >DELETE</th>
+                </tr>
+            </thead>
 
-    <table id ="datatable">
+            <tbody>
+                @php
+                    $sl = 0;
+                @endphp
 
-        <thead>
-            <tr>
-                <th >SL NO.</th>
-                {{-- <th >ID</th> --}}
-                <th >INVOICE NO.</th>
-                <th >CUSTOMER EMAIL</th>
-                <th >TOTAL</th>
-                <th >PAYMENT METHOD</th>
-                <th >DATE</th>
-                <th >VIEW</th>
-                <th >UPDATE</th>
-                <th >DELETE</th>
-            
-            </tr>
-        
-        </thead>
+                @foreach ($invoices as $invoice)
+                    <tr>
+                        <td align= "center">{{++$sl}}</td>
+                        {{-- <td align= "center">{{$invoice->id}}</td> --}}
+                        <td align= "center">{{$invoice->invoice_number}}</td>
+                        <td align= "left">{{$invoice->customer_email}}</td>
+                        <td align= "left">Tk {{$invoice->total}}</td>
+                        <td align= "center">{{$invoice->payment_method}}</td>
+                        <td align= "left">{{$invoice->date}}</td>
+                        {{-- <td>UPDATE</td>
+                        <td>DELETE</td> --}}
+                        <td><a href="/invoices/view/{{$invoice->id}}" class="btn btn-success">view</a></td>
+                        <td><a href="/invoices/update/{{$invoice->id}}" class="btn btn-primary">update</a></td>
+                        <td><a href="/invoices/delete/{{$invoice->id}}" class="btn btn-danger" onclick="alert('Invoice Deleted !')">delete</a></td>
 
-        <tbody>
-            @php
-            $sl = 0;
-            @endphp
-
-            @foreach ($invoices as $invoice)
-            <tr>
-                <td align= "center">{{++$sl}}</td>
-                {{-- <td align= "center">{{$invoice->id}}</td> --}}
-                <td align= "center">{{$invoice->invoice_number}}</td>
-                <td align= "left">{{$invoice->customer_email}}</td>
-                <td align= "left">Tk {{$invoice->total}}</td>
-                <td align= "center">{{$invoice->payment_method}}</td>
-                <td align= "left">{{$invoice->date}}</td>
-                {{-- <td>UPDATE</td>
-                <td>DELETE</td> --}}
-                <td><a href="/invoices/view/{{$invoice->id}}">view</a></td>
-                <td><a href="/invoices/update/{{$invoice->id}}">update</a></td>
-                <td><a href="/invoices/delete/{{$invoice->id}}" onclick="alert('Invoice Deleted !')">delete</a></td>
-
-            </tr>
-            @endforeach
-        </tbody>
-        
-    </table>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
 @endsection
 
