@@ -102,9 +102,13 @@
     <br>
  
     <div class="container" align="center">
-        <a href="/invoices/view/pdf/{{$invoice->id}}" class="btn btn-primary">View PDF</a>
-        <a href="/invoices/view/pdf/download/{{$invoice->id}}" class="btn btn-primary">Download PDF</a>
-        <a href="/invoices/view/pdf/email/{{$invoice->id}}" class="btn btn-primary">Email PDF</a>
+         
+        {{-- "/invoices/view/pdf/{{$invoice->id}}" --}}
+        <a href={{ route('invoices.view.pdf', $invoice->id ) }} class="btn btn-primary">View PDF</a>
+        {{-- "/invoices/view/pdf/download/{{$invoice->id}}" --}}
+        <a href={{ route('invoices.view.pdf.download', $invoice->id ) }} class="btn btn-primary">Download PDF</a>
+        {{-- "/invoices/view/pdf/email/{{$invoice->id}}" --}}
+        <a href={{ route('invoices.view.pdf.email', $invoice->id ) }} class="btn btn-primary">Email PDF</a>
     </div>
 
 

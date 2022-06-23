@@ -14,8 +14,7 @@ class AddColoumsToInvoicesTable extends Migration
     public function up()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            // $table->integer('profit_range')->unsigned()->after('purchase_price');
-            // $table->integer('selling_price')->unsigned()->after('profit_range');
+            $table->integer('profit')->after('total');
         });
     }
 

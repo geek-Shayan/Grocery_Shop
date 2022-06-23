@@ -47,7 +47,6 @@ class InvoiceController extends Controller
 
     public function saveNew(Request $request)
     {     
-        //echo "hi im conter"
         $invoice = new Invoice();
         $invoice -> save(); 
         

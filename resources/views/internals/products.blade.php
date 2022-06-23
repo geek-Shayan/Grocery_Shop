@@ -14,7 +14,7 @@
     </div>
         
     <div class="container-fluid ">
-        <form align="center" action="/products/new" method="post">
+        <form align="center" action={{ route('products.new') }} method="post">
             {{@csrf_field()}}
             <input type="submit" class="btn btn-block btn-dark " value=" New Item">
         </form>
@@ -66,8 +66,11 @@
                         <td align= "left">Tk {{$product->selling_price}} </td>
                         {{-- <td>UPDATE</td>
                         <td>DELETE</td> --}}
-                        <td><a href="/products/update/{{$product->id}}" class="btn btn-primary">Update</a></td>
-                        <td><a href="/products/delete/{{$product->id}}" class="btn btn-danger" onclick="alert('Product Deleted !')" >Delete</a></td>
+                        
+                        {{-- "/products/update/{{$product->id}}" --}}
+                        <td><a href={{ route('products.update', $product->id ) }} class="btn btn-primary">Update</a></td>
+                        <td><a href={{ route('products.delete', $product->id ) }} class="btn btn-danger" onclick="alert('Product Deleted !')" >Delete</a></td>
+                        {{-- "/products/delete/{{$product->id}}" --}}
 
                     </tr>
                 @endforeach

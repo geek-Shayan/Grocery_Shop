@@ -46,9 +46,13 @@
                         <td align= "left">{{$invoice->date}}</td>
                         {{-- <td>UPDATE</td>
                         <td>DELETE</td> --}}
-                        <td><a href="/invoices/view/{{$invoice->id}}" class="btn btn-success">view</a></td>
-                        <td><a href="/invoices/update/{{$invoice->id}}" class="btn btn-primary">update</a></td>
-                        <td><a href="/invoices/delete/{{$invoice->id}}" class="btn btn-danger" onclick="alert('Invoice Deleted !')">delete</a></td>
+                        
+                        {{-- "/invoices/view/{{$invoice->id}}" --}}
+                        <td><a href={{ route('invoices.view', $invoice->id ) }} class="btn btn-success">view</a></td>
+                        {{-- "/invoices/update/{{$invoice->id}}" --}}
+                        <td><a href={{ route('invoices.update', $invoice->id ) }} class="btn btn-primary">update</a></td>
+                        {{-- "/invoices/delete/{{$invoice->id}}" --}}
+                        <td><a href={{ route('invoices.delete', $invoice->id ) }} class="btn btn-danger" onclick="alert('Invoice Deleted !')">delete</a></td>
 
                     </tr>
                 @endforeach

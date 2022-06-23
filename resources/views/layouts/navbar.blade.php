@@ -12,18 +12,18 @@
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active " aria-current="page" href="/">Home</a>
+                    <a class="nav-link active " aria-current="page" href={{ route('home') }} >Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active " href="/products">Products</a>
+                    <a class="nav-link active " href={{ route('products') }}>Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active " href="/invoices">Invoices</a>
+                    <a class="nav-link active " href={{ route('invoices') }}>Invoices</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/order">Order</a>
+                    <a class="nav-link active" href={{ route('orders') }}>Order</a>
                 </li>
-                <a class="nav-link active" href="/insight">Insight</a>
+                <a class="nav-link active" href={{ route('insight') }}>Insight</a>
                 </li>
             
             </ul>

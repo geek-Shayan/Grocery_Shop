@@ -59,7 +59,7 @@ class PDFController extends Controller
 
         $pdf = PDF::loadView('/pdfs/invoice_pdf', compact('date', 'invoice', 'sold_items') );
 
-        Mail::to($invoice->customer_email)->send(new InvoiceMail($invoice->id));
+        // Mail::to($invoice->customer_email)->send(new InvoiceMail($invoice->id));
 
         $data['invoice'] = $invoice;
         $data['sold_items'] = $sold_items;

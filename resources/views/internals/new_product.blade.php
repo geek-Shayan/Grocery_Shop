@@ -6,7 +6,7 @@
         <h3>NEW PRODUCT</h3>    
     </div>
     
-    <form align= "center" action="/products/new/save" method="post" >
+    <form align= "center" action={{ route('products.new.save') }} method="post" >
         {{@csrf_field()}}
 
         {{-- <div class="form-gruop">

@@ -15,55 +15,25 @@
 //     return view('welcome');
 // });
 
-Route::view('/', 'home');
+Route::view('/', 'home')->name('home');
 
 //PRODUCTS
-//Route::view('products', 'internals/products');
-Route::get('products', 'ProductController@productList');
+Route::get('products', 'ProductController@productList')->name('products');
 
 //NEW PRODUCT
-Route::post('products/new', 'ProductController@addNew');
-Route::post('products/new/save', 'ProductController@saveNew');
+Route::post('products/new', 'ProductController@addNew')->name('products.new');
+Route::post('products/new/save', 'ProductController@saveNew')->name('products.new.save');
 
 //UPDATE PRODUCT
-Route::get('products/update/{id}', 'ProductController@updateProduct');
-Route::post('products/update/{id}', 'ProductController@updateProductSave');
+Route::get('products/update/{id}', 'ProductController@updateProduct')->name('products.update');
+Route::post('products/update/{id}', 'ProductController@updateProductSave')->name('products.update.save');
 
 //DELETE PRODUCT
-Route::get('products/delete/{id}', 'ProductController@deleteProduct');
+Route::get('products/delete/{id}', 'ProductController@deleteProduct')->name('products.delete');
 
-//ORDER
-//Route::view('order', 'internals/order');
-Route::get('order', 'OrderController@orderList');
-Route::post('order', 'OrderController@saveOrder')->name('order.confirm');
-
-
-/////////////////////////////////
-//INVOICE ON ORDER
-// Route::get('order/invoices', 'InvoiceController@InvoiceAddOnOrder');
-// Route::post('order/invoices', 'InvoiceController@InvoiceSaveOnOrder');
-// InvoiceSaveOnOrder
-
-// return redirect('/order/invoices',compact('Iid')); 
-// InvoiceAddOnOrder
-///////////////////////////////
 
 //INVOICES
-// Route::view('invoices', 'internals/invoices');
-Route::get('invoices', 'InvoiceController@invoiceList');
-
-//INVOICE VIEW INDIVIDUAL
-Route::get('invoices/view/{id}', 'InvoiceController@invoiceView');
-
-//INVOICE VIEW INDIVIDUAL PDF
-Route::get('invoices/view/pdf/{id}', 'PDFController@generatePDF');
-
-//INVOICE VIEW INDIVIDUAL PDF DOWNLOAD
-Route::get('invoices/view/pdf/download/{id}', 'PDFController@downloadPDF');
-
-//INVOICE VIEW INDIVIDUAL PDF MAIL
-// Route::view('invoices/view/pdf/email/{id}', 'pdfs/invoice_pdf');
-Route::get('invoices/view/pdf/email/{id}', 'PDFController@mailPDF');
+Route::get('invoices', 'InvoiceController@invoiceList')->name('invoices');
 
 ////////////////////////////////
 //NEW INVOICES
@@ -73,18 +43,29 @@ Route::get('invoices/view/pdf/email/{id}', 'PDFController@mailPDF');
 // //  Route::post('invoices/new/save/{id}', 'InvoiceController@InvoiceSaveOnOrder');
 ///////////////////////////////
 
- 
+//INVOICE VIEW INDIVIDUAL
+Route::get('invoices/view/{id}', 'InvoiceController@invoiceView')->name('invoices.view');
+
+//INVOICE VIEW INDIVIDUAL PDF
+Route::get('invoices/view/pdf/{id}', 'PDFController@generatePDF')->name('invoices.view.pdf');
+
+//INVOICE VIEW INDIVIDUAL PDF DOWNLOAD
+Route::get('invoices/view/pdf/download/{id}', 'PDFController@downloadPDF')->name('invoices.view.pdf.download');
+
+//INVOICE VIEW INDIVIDUAL PDF MAIL
+Route::get('invoices/view/pdf/email/{id}', 'PDFController@mailPDF')->name('invoices.view.pdf.email');
 
 //UPDATE INVOICES
-Route::get('invoices/update/{id}', 'InvoiceController@updateInvoice');
-Route::post('invoices/update/{id}', 'InvoiceController@updateInvoiceSave');
-////////////////////////////////
+Route::get('invoices/update/{id}', 'InvoiceController@updateInvoice')->name('invoices.update');
+Route::post('invoices/update/{id}', 'InvoiceController@updateInvoiceSave')->name('invoices.update.save');
 
-//DELETE INVOICES
-Route::get('invoices/delete/{id}', 'InvoiceController@deleteInvoice');
+//DELETE INVOICES (DELETES ALSO ORDERS INSIDE INVOICE)
+Route::get('invoices/delete/{id}', 'InvoiceController@deleteInvoice')->name('invoices.delete');
 
-
+//ORDER (CREATES NEW INVOICE)
+Route::get('order', 'OrderController@orderList')->name('orders');
+Route::post('order', 'OrderController@saveOrder')->name('order.confirm');
 
 //INSIGHT
-Route::view('insight', 'internals/insight');
+Route::view('insight', 'internals/insight')->name('insight');
 

@@ -28,7 +28,8 @@
         }
     </style>
     
-    <form align= "center" action="/invoices/update/{{$id}}" method="post">
+    {{-- "/invoices/update/{{$id}}" --}}
+    <form align= "center" action={{ route('invoices.update.save', $invoice->id ) }} method="post">
         {{@csrf_field()}}
 
 

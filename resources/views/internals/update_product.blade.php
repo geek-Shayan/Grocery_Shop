@@ -4,8 +4,8 @@
     <div class="container-fluid bg-success">
         <h3>UPDATE PRODUCT</h3>    
     </div>
-    
-    <form align= "center" action="/products/update/{{$id}}" method="post">
+    {{-- "/products/update/{{$id}}" --}}
+    <form align= "center" action={{ route('products.update.save',$product->id) }} method="post">
         {{@csrf_field()}}
             {{-- <h6>id:         <input type="number" name="id" id=""> <br></h6> --}}
             <h6>NAME        :               <input type="text" placeholder="{{$product->name}}" name="name" id=""> <br></h6> 
