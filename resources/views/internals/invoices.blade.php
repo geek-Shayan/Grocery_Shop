@@ -21,6 +21,7 @@
                     {{-- <th >ID</th> --}}
                     <th >INVOICE NO.</th>
                     <th >CUSTOMER EMAIL</th>
+                    <th >PROFIT</th>
                     <th >TOTAL</th>
                     <th >PAYMENT METHOD</th>
                     <th >DATE</th>
@@ -33,14 +34,19 @@
             <tbody>
                 @php
                     $sl = 0;
+                    $profit = 0;
                 @endphp
 
                 @foreach ($invoices as $invoice)
+                    @php
+                        // $profit = 
+                    @endphp
                     <tr>
                         <td align= "center">{{++$sl}}</td>
                         {{-- <td align= "center">{{$invoice->id}}</td> --}}
                         <td align= "center">{{$invoice->invoice_number}}</td>
                         <td align= "left">{{$invoice->customer_email}}</td>
+                        <td align= "left">Tk {{$invoice->profit}}</td>
                         <td align= "left">Tk {{$invoice->total}}</td>
                         <td align= "center">{{$invoice->payment_method}}</td>
                         <td align= "left">{{$invoice->date}}</td>

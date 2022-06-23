@@ -31,7 +31,6 @@ Route::post('products/update/{id}', 'ProductController@updateProductSave')->name
 //DELETE PRODUCT
 Route::get('products/delete/{id}', 'ProductController@deleteProduct')->name('products.delete');
 
-
 //INVOICES
 Route::get('invoices', 'InvoiceController@invoiceList')->name('invoices');
 

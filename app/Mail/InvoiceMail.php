@@ -33,8 +33,6 @@ class InvoiceMail extends Mailable
     public $date;
     public $pdf;
     
-
-    
     public function __construct($invoice_id)  //, $pdf
     {
         $this->invoice = Invoice::find($invoice_id);
@@ -44,21 +42,19 @@ class InvoiceMail extends Mailable
             ->where('sold_items.invoice_id', '=', $invoice_id)
             ->get();
 
-            // $this->pdf = base64_encode($pdf);
+        // $this->pdf = base64_encode($pdf);
             
-            
-            
-            ///////////////////////////
-            
-            $this->date = date('m/d/Y');
-            
-            $this->pdf = PDF::loadView('/pdfs/invoice_pdf', [
-                'date' => $this->date,
-                'invoice' => $this->invoice,
-                'sold_items' => $this->sold_items
-            ]);
 
-            //////////////////////////////////////
+        // PDF CREATED HERE INSIDE MAIL CLASS 
+        /////////////////////////////////////
+        // $this->date = date('m/d/Y');
+        
+        // $this->pdf = PDF::loadView('/pdfs/invoice_pdf', [
+        //     'date' => $this->date,
+        //     'invoice' => $this->invoice,
+        //     'sold_items' => $this->sold_items
+        // ]);
+        //////////////////////////////////////
 
     }
 
@@ -75,10 +71,12 @@ class InvoiceMail extends Mailable
                     ->with('invoice', $this->invoice)
                     ->with('sold_items', $this->sold_items);
 
-                    /////////////////////////
+
+                    // PDF ATTACHED HERE INSIDE MAIL CLASS 
+                    ///////////////////////////////////
                     // ->attachData($this->pdf->output(), "Grocery Shop Invoice {$this->invoice->invoice_number}.pdf");
                     // ->attachData(base64_decode($this->pdf));
-                    ////////////////////////
+                    //////////////////////////////////
 
                     
                     // ->view('mails.invoice_mail',compact('invoice', 'sold_items'));

@@ -12,6 +12,7 @@ use PDF;
 
 class PDFController extends Controller
 {
+    //PDF GENERATE
     public function generatePDF($invoice_id)
     {
         $invoice = Invoice::find($invoice_id);
@@ -29,7 +30,7 @@ class PDFController extends Controller
     }
 
 
-
+    //PDF DOWNLOAD
     public function downloadPDF($invoice_id)
     {
         $invoice = Invoice::find($invoice_id);
@@ -46,8 +47,13 @@ class PDFController extends Controller
         // return view('/pdfs/invoice_pdf');
     }
 
+
+    //PDF MAIL TO CUSTOMER
     public function mailPDF($invoice_id)
     {
+        ////////////////////////////////
+        //PDF CREATED, ATTACHED HERE AND SEND TO MAIL CLASS
+
         $invoice = Invoice::find($invoice_id);
 
         $sold_items = SoldItem::join('products', 'sold_items.product_id', '=', 'products.id')
@@ -59,22 +65,24 @@ class PDFController extends Controller
 
         $pdf = PDF::loadView('/pdfs/invoice_pdf', compact('date', 'invoice', 'sold_items') );
 
-        // Mail::to($invoice->customer_email)->send(new InvoiceMail($invoice->id));
-
         $data['invoice'] = $invoice;
         $data['sold_items'] = $sold_items;
         $data['date'] = $date;
-
+        
         Mail::send('mails.invoice_mail', $data, function($message)use($invoice , $pdf) {
             $message->to($invoice->customer_email)
-                    ->subject("INVOICE WITH PDF")
-                    ->attachData($pdf->output(), "Grocery Shop Invoice {$invoice->invoice_number}.pdf");
+            ->subject("INVOICE WITH PDF")
+            ->attachData($pdf->output(), "Grocery Shop Invoice {$invoice->invoice_number}.pdf");
         });
-        
 
-        
-        // dd('Mail sent successfully');
-        // return view('/pdfs/invoice_pdf');
+        ////////////////////////////////
+
+
+
+        ////////////////////////////////
+        // SEND MAIL IN MAIL CLASS TO CREATE PDF THERE
+        // Mail::to($invoice->customer_email)->send(new InvoiceMail($invoice->id)); 
+        ////////////////////////////////
 
         return redirect('/invoices');
         // return redirect("/invoices/view/{$invoice_id}");

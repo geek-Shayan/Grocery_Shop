@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-
+{{-- $table->integer('profit')->after('total')->nullable(); --}}
 @section('content')
 
     <div class="container-fluid bg-success">
@@ -58,9 +58,8 @@
                             <option value="bkash">Bkash</option>
                         </select>
                     </td>
-
-
                 </tr>
+                
                 <tr align= "left">
                     <th>DATE:</th>
                     <td><input type="date" name="date" id=""> </td>
@@ -93,7 +92,7 @@
                     </td>
                     
                     <td>
-                        <input type="number" placeholder="{{$product->selling_price}}" id="selling_price{{$product->id}}" > 
+                        <input type="number" placeholder="{{$product->selling_price}}   (P-{{$product->purchase_price}})" id="selling_price{{$product->id}}" > 
                         {{-- value="0" --}}
                     </td>
 
