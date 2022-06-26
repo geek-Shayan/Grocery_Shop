@@ -46,7 +46,13 @@ class InvoiceController extends Controller
     }
 
     public function saveNew(Request $request)
-    {     
+    {    
+        $valid_data = request()->validate([
+            'customer_email' => 'required|email',
+            'payment_method' => 'required',
+            'date' => 'required|date',
+        ]);
+
         $invoice = new Invoice();
         $invoice -> save(); 
         
@@ -68,17 +74,23 @@ class InvoiceController extends Controller
         return view('/internals/update_invoice', compact('id','invoice'));
     }
 
-    public function updateInvoiceSave(Request $r , $id)
+    public function updateInvoiceSave(Request $request , $id)
     {
+        $valid_data = request()->validate([
+            'customer_email' => 'required|email',
+            'payment_method' => 'required',
+            'date' => 'required|date',
+        ]);
+
         $invoice = Invoice::find($id);
 
         $number =1000 + $invoice->id;
         $invoice->invoice_number = $number;
 
-        $invoice->customer_email = $r -> customer_email;
-        // $invoice->total = $r -> total; 
-        $invoice->payment_method = $r -> payment_method; 
-        $invoice->date = $r -> date;
+        $invoice->customer_email = $request -> customer_email;
+        // $invoice->total = $request -> total; 
+        $invoice->payment_method = $request -> payment_method; 
+        $invoice->date = $request -> date;
         $invoice -> save(); 
         
         return redirect('/invoices');  

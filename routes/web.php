@@ -21,8 +21,16 @@ Route::view('/', 'home')->name('home');
 Route::get('products', 'ProductController@productList')->name('products');
 
 //NEW PRODUCT
+Route::get('products/new', 'ProductController@addNew')->name('products.new');
 Route::post('products/new', 'ProductController@addNew')->name('products.new');
 Route::post('products/new/save', 'ProductController@saveNew')->name('products.new.save');
+
+// //UPLOAD IMAGE OF PRODUCT
+// Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ])->name('image.upload');
+// Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ])->name('image.upload.post');
+
+//PRODUCT VIEW INDIVIDUAL
+Route::get('products/view/{id}', 'ProductController@productView')->name('products.view');
 
 //UPDATE PRODUCT
 Route::get('products/update/{id}', 'ProductController@updateProduct')->name('products.update');

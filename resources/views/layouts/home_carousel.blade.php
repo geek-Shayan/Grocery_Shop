@@ -25,7 +25,7 @@
                 <!-- The slideshow/carousel -->
                 <div class="carousel-inner " align="center">
                     {{-- <div class="carousel-item active">
-                        <img src="https://cdn2.vectorstock.com/i/1000x1000/49/86/logo-for-grocery-store-vector-22844986.jpg" alt="Los Angeles" class="d-block"  style="width:40%  ">
+                        <img class="img-fluid" src="https://cdn2.vectorstock.com/i/1000x1000/49/86/logo-for-grocery-store-vector-22844986.jpg" alt="Los Angeles" class="d-block"  style="width:40%  ">
                         <div class="carousel-caption">
                             <h1>GROCERY SHOP</h1> 
                             <h3><a href="/order" class="btn btn-primary"><b> Order Now !!!</b></a></h3>
@@ -35,7 +35,7 @@
                         </div>
                     </div> --}}
                     <div class="carousel-item active">
-                        <img src="https://i0.wp.com/krushiphal.com/wp-content/uploads/2020/07/Best-Quality-Fresh-Mango-Exporters-India-2.jpg?resize=800%2C400&ssl=1" alt="Los Angeles" class="d-block"  style="height:20%  ">
+                        <img class="img-fluid" src="https://i0.wp.com/krushiphal.com/wp-content/uploads/2020/07/Best-Quality-Fresh-Mango-Exporters-India-2.jpg?resize=800%2C400&ssl=1" alt="Los Angeles" class="d-block"  style="height:20%  ">
                         <div class="carousel-caption">
                             {{-- <h1 class="text-dark ">GROCERY SHOP</h1>  --}}
                             <h4 class="text-dark ">Fresh Mangoes</h4>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://www.leicestermarket.co.uk/wp-content/uploads/2019/08/outdoor-market-aug-19-04-700x300.jpg" alt="Chicago" class="d-block" style="width:70%">
+                        <img class="img-fluid" src="https://www.leicestermarket.co.uk/wp-content/uploads/2019/08/outdoor-market-aug-19-04-700x300.jpg" alt="Chicago" class="d-block" style="width:70%">
                         <div class="carousel-caption">
                             {{-- <h1 class="text-dark ">GROCERY SHOP</h1>  --}}
                             <h4 class="text-dark ">Fresh Apples</h4>
@@ -53,7 +53,7 @@
                         </div> 
                     </div>
                     <div class="carousel-item">
-                        <img src="https://vmstrading.cl/assets/img/fruits/fresh-fruit/oranges-700x300.jpg" alt="New York" class="d-block" style="width:70%" >
+                        <img class="img-fluid" src="https://vmstrading.cl/assets/img/fruits/fresh-fruit/oranges-700x300.jpg" alt="New York" class="d-block" style="width:70%" >
                         <div class="carousel-caption">
                             {{-- <h1 class="text-dark ">GROCERY SHOP</h1> --}}
                             <h4 class="text-dark ">Fresh Oranges</h4>

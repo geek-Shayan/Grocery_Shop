@@ -26,6 +26,7 @@
                 <tr>
                     <th>SL NO.</th>
                     {{-- <th>ID</th> --}}
+                    <th>IMAGE</th>
                     <th>NAME</th>
                     <th>SKU</th>
                     <th>DESCRIPTION</th>
@@ -33,6 +34,7 @@
                     <th>PURCHASE PRICE</th>
                     <th>PROFIT RANGE</th>
                     <th>SELLING PRICE</th>
+                    <th>VIEW</th>
                     <th>UPDATE</th>
                     <th>DELETE</th>
                 </tr>
@@ -57,6 +59,7 @@
                     <tr>
                         <td align= "center">{{++$sl}}</td>
                         {{-- <td align= "center">{{$product->id}}</td> --}}
+                        <td><img src="{{ asset('storage/app/images/'.$product->image) }}" alt="" title="" style="width:20%"></td>
                         <td align= "left">{{$product->name}}</td>
                         <td align= "left">{{$product->sku}}</td>
                         <td align= "left">{{$product->description}}</td>
@@ -66,7 +69,7 @@
                         <td align= "left">Tk {{$product->selling_price}} </td>
                         {{-- <td>UPDATE</td>
                         <td>DELETE</td> --}}
-                        
+                        <td><a href={{ route('products.view', $product->id ) }} class="btn btn-success">view</a></td>
                         {{-- "/products/update/{{$product->id}}" --}}
                         <td><a href={{ route('products.update', $product->id ) }} class="btn btn-primary">Update</a></td>
                         <td><a href={{ route('products.delete', $product->id ) }} class="btn btn-danger" onclick="alert('Product Deleted !')" >Delete</a></td>
