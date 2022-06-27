@@ -14,9 +14,9 @@
         @yield('styles')
     </head>
 
-    <body>
-
-        <div class ="Container">
+    <body >
+        {{-- style="background-color: rgba(119, 194, 49, 0.705)" --}}
+        <div class ="Container " >
 
             @include('layouts.navbar')
             @yield('content')

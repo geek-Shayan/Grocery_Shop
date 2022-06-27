@@ -25,12 +25,12 @@ Route::get('products/new', 'ProductController@addNew')->name('products.new');
 Route::post('products/new', 'ProductController@addNew')->name('products.new');
 Route::post('products/new/save', 'ProductController@saveNew')->name('products.new.save');
 
-// //UPLOAD IMAGE OF PRODUCT
-// Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ])->name('image.upload');
-// Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ])->name('image.upload.post');
-
 //PRODUCT VIEW INDIVIDUAL
 Route::get('products/view/{id}', 'ProductController@productView')->name('products.view');
+
+//PRODUCT RESTOCK
+Route::get('products/restock/{id}', 'ProductController@restockProduct')->name('products.restock');
+Route::post('products/restock/{id}', 'ProductController@restockProductSave')->name('products.restock.save');
 
 //UPDATE PRODUCT
 Route::get('products/update/{id}', 'ProductController@updateProduct')->name('products.update');

@@ -4,7 +4,7 @@
     <div class="container-fluid bg-success">
         <h3>UPDATE PRODUCT</h3>    
     </div>
-    <form style="text-align: center" action={{ route('products.update.save',$product->id) }} method="post">
+    <form style="text-align: center" action={{ route('products.update.save',$product->id) }} method="post" enctype="multipart/form-data">
         {{@csrf_field()}}
         <div class="container" style="width:50%">
             <div class="form-gruop">
@@ -91,9 +91,22 @@
                     @endif
                 </div>
             </div>
+
+            <div class="form-gruop">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="file" name="image" value="{{old('image')}}" id="" class="form-control">
+                    <label for="image"><h6>UPLOAD IMAGE</h6></label>
+
+                    @if (count($errors) > 0)
+                        <div class="alert alert-info alert-dismissible fade show">
+                            <button type="button" for="submit" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong>Wait! </strong>{{$errors->first('image')}}
+                        </div>
+                    @endif
+                </div>
+            </div>
         </div>
 
-        {{-- onclick="alert('New Item Saved!')" --}}
         <button type="submit" name="submit" class="btn btn-primary">Update Item</button>
     </form>
 

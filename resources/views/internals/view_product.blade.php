@@ -5,34 +5,42 @@
 @section('content')
 
     <div class="container-fluid bg-success">
-        <h3>VIEW view_product</h3>    
+        <h3>VIEW PRODUCT</h3>    
     </div>
 
-    {{-- <style>
-        table {
-          border-collapse: collapse;
-          width: 80%;
-        }
-        
-        th, td {
-          text-align: center;
-          padding: 8px;
-        }
-        
-        tr:nth-child(even) {
-          background-color: #D6EEEE;
-        }
-    </style> --}}
+    <div class="container" style="text-align: center" >
+     
+        <a href="" class="btn btn-primary">View PDF</a>
+        {{-- {{ route('invoices.view.pdf', $invoice->id ) }} --}}
+        <a href="" class="btn btn-primary">Download PDF</a>
+        {{-- {{ route('invoices.view.pdf.download', $invoice->id ) }} --}}
+        <a href="" class="btn btn-primary">Email PDF</a>
+        {{-- {{ route('invoices.view.pdf.email', $invoice->id ) }} --}}
 
+        {{-- <a href="" class="btn btn-primary">Email PDF</a> --}}
+        <a href="" class="btn btn-primary">Download IMAGE</a>
+        {{-- <a href="" class="btn btn-primary">Email PDF</a> --}}
 
-    <h6>PRODUCT ID :        <output name="id" >{{$product->id}}</output></h6>
-    <h6>NAME :    <output name="name" >{{$product->name}}</output></h6>
-    <h6>SKU :    <output name="sku" >{{$product->sku}}</output></h6>
-    <h6>DESCRIPTION :              <output name="description" >{{$product->description}}</output></h6>
-    <h6>AVAILABLE QUANTITY :    <output name="available_quantity" >{{$product->available_quantity}}</output></h6>
+        <a href={{ route('products.restock', $product->id ) }} class="btn btn-success">Restock</a>
+        <a href={{ route('products.update', $product->id ) }} class="btn btn-warning">Update</a>
+        <a href={{ route('products.delete', $product->id ) }} class="btn btn-danger" onclick="alert('Product Deleted !')" >Delete</a>
+    </div>
+    
+    <br>
+    
+    <div class="container" style="text-align: center" style="width:50%">
+        <h6>PRODUCT ID :            <output name="id" >{{$product->id}}</output></h6>
+        <h6>NAME :                  <output name="name" >{{$product->name}}</output></h6>
+        <h6>SKU :                   <output name="sku" >{{$product->sku}}</output></h6>
+        <h6>DESCRIPTION :           <output name="description" >{{$product->description}}</output></h6>
+        <h6>AVAILABLE QUANTITY :    <output name="available_quantity" >{{$product->available_quantity}} Pcs</output></h6>
+        <h6>PURCHASE PRICE :        <output name="purchase_price" >{{$product->purchase_price}} Tk</output></h6>
+        <h6>PROFIT RANGE :          <output name="profit_range" >{{$product->profit_range}} Tk</output></h6>
+        <h6>SELLING PRICE :         <output name="selling_price" >{{$product->selling_price}} Tk</output></h6>
 
-
-    <img src="{{ asset('storage/app/images/'.$product->image) }}" alt="" title="">
+        <img src="{{ asset('storage/app/images/'.$product->image) }}" alt="{{$product->name}}" title="{{$product->name}}" style="width:20%">
+    
+    </div>
 
 
 

@@ -96,7 +96,7 @@
 
             <div class="form-gruop">
                 <div class="form-floating mb-3 mt-3">
-                    <input type="file" name="image"  id="" class="form-control">
+                    <input type="file" name="image" value="{{old('image')}}" id="" class="form-control">
                     <label for="image"><h6>UPLOAD IMAGE</h6></label>
 
                     @if (count($errors) > 0)
@@ -108,7 +108,6 @@
                 </div>
             </div> 
             
-            {{-- onclick="alert('New Item Saved!')" --}}
             <button type="submit" name="submit" class="btn btn-primary">Save New Item</button>
             
             {{-- <div class="spinner-border text-info"> </div> --}}

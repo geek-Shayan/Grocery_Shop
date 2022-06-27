@@ -26,7 +26,6 @@ class OrderController extends Controller
         // dd($cart);
         // dd(count($cart));
 
-
         // GET THE VALUES FOR SOLD ITEMS FROM ORDER AND CREATE INVOICE
         $invoice = new Invoice();
         // $invoice -> profit = 0; // INITIALIZED BEFORE BECAUSE NOT NULLABLE
@@ -34,6 +33,7 @@ class OrderController extends Controller
 
         $number = $invoice->id + 1000;
         $invoice->invoice_number = $number;
+
         $invoice->customer_email = $request -> customer_email;
         $invoice->payment_method = $request -> payment_method;
         $invoice->date = $request -> date;
@@ -57,7 +57,7 @@ class OrderController extends Controller
         $invoice -> total = $total;
         $invoice -> save();
         
-        // PROFIT CALCULATION FOR DB
+        // PROFIT + INVENTORY AVAILABLE QUANTITY CALCULATION FOR DB
         $sold_items = SoldItem::join('products', 'sold_items.product_id', '=', 'products.id')
             ->select('products.id', 'products.purchase_price', 'sold_items.quantity', 'sold_items.selling_price')
             ->where('sold_items.invoice_id', '=', $invoice->id)
@@ -67,8 +67,15 @@ class OrderController extends Controller
         
         foreach ($sold_items as $sold_item)
         {
+            // PROFIT
             $profit += ($sold_item->quantity * $sold_item->selling_price) - ($sold_item->quantity *$sold_item->purchase_price);
+
+            // INVENTORY AVAILABLE QUANTITY
+            $product = Product::find($sold_item->id);
+            $product->available_quantity -= $sold_item->quantity;
+            $product->save();
         }
+
 
         $invoice -> profit = $profit;
         $invoice -> save();

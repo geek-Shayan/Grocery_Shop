@@ -46,7 +46,13 @@
                         {{-- <td align= "center">{{$invoice->id}}</td> --}}
                         <td align= "center">{{$invoice->invoice_number}}</td>
                         <td align= "left">{{$invoice->customer_email}}</td>
-                        <td align= "left">Tk {{$invoice->profit}}</td>
+
+                        @if ($invoice->profit > 0)
+                            <td align= "left" class="text-info">Tk {{$invoice->profit}}</td>
+                        @else
+                            <td align= "left" class="text-warning">Tk {{$invoice->profit}}</td>
+                        @endif
+                        
                         <td align= "left">Tk {{$invoice->total}}</td>
                         <td align= "center">{{$invoice->payment_method}}</td>
                         <td align= "left">{{$invoice->date}}</td>

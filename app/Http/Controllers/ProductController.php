@@ -69,27 +69,41 @@ class ProductController extends Controller
         $product->profit_range = $request -> profit_range; 
         $product->selling_price = $request -> purchase_price + $request -> profit_range;
 
-
-        $imageName = $request->sku.'_'.time().'.'.$request->image->extension();  
-     
+        $imageName = $request->sku.'_'.time().'.'.$request->image->extension();
         // $request->image->move(public_path('images'), $imageName);
-        $request->image->storeAs('images', $imageName);
-        // storage/app/images/file.png
+        $request->image->storeAs('images', $imageName);// storage/app/images/file.png
   
         /* Store $imageName name in DATABASE from HERE */
         $product->image = $imageName;
-
-    
-        // return back()
-        //     ->with('success','You have successfully upload image.')
-        //     ->with('image',$imageName);
-
-
 
         $product -> save(); 
         return redirect('/products');      
     }
 
+    public function restockProduct($id)
+    {
+        $product = Product::find($id);
+        return view('/internals/restock_product', compact('id','product'));
+    }
+
+    public function restockProductSave(Request $request , $id)
+    {
+        $valid_data = request()->validate([
+            'restock_quantity' => 'required',
+            'purchase_price' => 'required',
+            'profit_range' => 'required',
+        ]);
+
+        $product = Product::find($id);
+        $product->available_quantity += $request -> restock_quantity; 
+
+        $product->purchase_price = $request -> purchase_price;
+        $product->profit_range = $request -> profit_range;
+        $product->selling_price = $request -> purchase_price + $request -> profit_range;
+
+        $product -> save(); 
+        return redirect('/products'); 
+    }
 
     public function updateProduct($id)
     {
@@ -106,6 +120,7 @@ class ProductController extends Controller
             'available_quantity' => 'required',
             'purchase_price' => 'required',
             'profit_range' => 'required',
+            'image' => 'required',
         ]);
 
         $product = Product::find($id);
@@ -114,11 +129,17 @@ class ProductController extends Controller
         $product->description = $request -> description; 
         $product->available_quantity = $request -> available_quantity; 
         $product->purchase_price = $request -> purchase_price;
-        $product->profit_range = $request -> profit_range; 
-        // $product->selling_price = $request -> selling_price;
+        $product->profit_range = $request -> profit_range;
         $product->selling_price = $request -> purchase_price + $request -> profit_range;
+
+        $imageName = $request->sku.'_'.time().'.'.$request->image->extension();  
+        // $request->image->move(public_path('images'), $imageName); // public
+        $request->image->storeAs('images', $imageName); // storage/app/images/file.png
+  
+        /* Store $imageName name in DATABASE from HERE */
+        $product->image = $imageName;
+
         $product -> save(); 
-        
         return redirect('/products');  
     }
 

@@ -4,6 +4,12 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/datatables.min.css"/>
+ 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/datatables.min.js"></script> --}}
+
 @endsection
 
 
@@ -35,6 +41,7 @@
                     <th>PROFIT RANGE</th>
                     <th>SELLING PRICE</th>
                     <th>VIEW</th>
+                    <th>RESTOCK</th>
                     <th>UPDATE</th>
                     <th>DELETE</th>
                 </tr>
@@ -59,22 +66,25 @@
                     <tr>
                         <td align= "center">{{++$sl}}</td>
                         {{-- <td align= "center">{{$product->id}}</td> --}}
-                        <td><img src="{{ asset('storage/app/images/'.$product->image) }}" alt="" title="" style="width:20%"></td>
+                        <td><img src="{{ asset('storage/app/images/'.$product->image) }}" alt="{{$product->name}}" title="{{$product->name}}" style="width:20%"></td>
                         <td align= "left">{{$product->name}}</td>
                         <td align= "left">{{$product->sku}}</td>
                         <td align= "left">{{$product->description}}</td>
-                        <td align= "left">{{$product->available_quantity}} pcs</td>
+                        
+                        @if ($product->available_quantity > 0)
+                            <td class="text-info" >{{$product->available_quantity}} pcs</td>   
+                        @else
+                            <td class="text-warning">Not available!</td>
+                        @endif
+
                         <td align= "left">Tk {{$product->purchase_price}} </td>
                         <td align= "left">Tk {{$product->profit_range}} </td>
                         <td align= "left">Tk {{$product->selling_price}} </td>
-                        {{-- <td>UPDATE</td>
-                        <td>DELETE</td> --}}
-                        <td><a href={{ route('products.view', $product->id ) }} class="btn btn-success">view</a></td>
-                        {{-- "/products/update/{{$product->id}}" --}}
+ 
+                        <td><a href={{ route('products.view', $product->id ) }} class="btn btn-success">View</a></td>
+                        <td><a href={{ route('products.restock', $product->id ) }} class="btn btn-secondary">Restock</a></td>
                         <td><a href={{ route('products.update', $product->id ) }} class="btn btn-primary">Update</a></td>
                         <td><a href={{ route('products.delete', $product->id ) }} class="btn btn-danger" onclick="alert('Product Deleted !')" >Delete</a></td>
-                        {{-- "/products/delete/{{$product->id}}" --}}
-
                     </tr>
                 @endforeach
             </tbody>

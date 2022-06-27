@@ -27,11 +27,18 @@
         }
       
     </style>
+    
 
             {{-- <form oninput="x.value=parseInt(a.value)">
                 <input type="range" id="a" value="50"> 
                 +<input type="number" id="b" value="25">
                 =<output name="x" for="a "></output>
+            </form> --}}
+
+            {{-- <form action="/action_page.php">
+                <label for="vol">Volume (between 0 and 50):</label>
+                <input type="range" id="vol" name="vol" min="0" max="50">
+                <input type="submit">
             </form> --}}
 
         <form align= "center" action={{ route('order.confirm') }} method="post" onsubmit="return processCart()">
@@ -64,38 +71,51 @@
                     <th>DATE:</th>
                     <td><input type="date" name="date" id=""> </td>
                 </tr>
-                    
             </table>
             
             <br>
 
             <table align="center">
-               
                 <tr>
                     <th>PRODUCTS</th>
                     <th>QUANTITY</th>
                     <th>PRICE</th>
                 </tr>
 
-
                 @foreach ($products as $product)
-
                 <tr>
-                
+                    @if ($product->available_quantity > 0)
                     <th >
                         <input align="left" type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
                         {{$product->name}} [{{$product->sku}}] {{$product->description}}
                     </th>
-
-                    <td >
-                        <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}"  >
-                    </td>
                     
                     <td>
+                        <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}">
+                    </td>  
+                    
+                    <td>
+                        <input type="number" placeholder="{{$product->selling_price}}   (P-{{$product->purchase_price}})" id="selling_price{{$product->id}}">
+                    </td> 
+                    @else
+                    <th class="text-danger">{{$product->name}} [{{$product->sku}}] {{$product->description}}</th>
+                    <td class="text-danger">Not available!</td>
+                    <td class="text-danger">Not available!</td>
+                    @endif
+                    
+                    {{-- <th >
+                        <input align="left" type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
+                        {{$product->name}} [{{$product->sku}}] {{$product->description}}
+                    </th> --}}
+                    
+                    {{-- <td >
+                        <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}" >
+                    </td> --}}
+                    
+                    {{-- <td>
                         <input type="number" placeholder="{{$product->selling_price}}   (P-{{$product->purchase_price}})" id="selling_price{{$product->id}}" > 
-                        {{-- value="0" --}}
-                    </td>
-
+                    </td> --}}
+                    
                 </tr>
                 @endforeach
             </table>
