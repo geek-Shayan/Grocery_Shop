@@ -22,6 +22,13 @@ class OrderController extends Controller
     // SAVE ORDER (CREATES NEW INVOICE + SENDS INVOICE MAIL TO CUSTOMER)
     public function saveOrder(Request $request)  
     {
+
+        $valid_data = request()->validate([
+            'customer_email' => 'required|email',
+            'payment_method' => 'required',
+            'date' => 'required|date',
+        ]);
+
         $cart = json_decode($request->cart, true); // GETS JSON OF SOLD ITEMS FOR INVOICE 
         // dd($cart);
         // dd(count($cart));

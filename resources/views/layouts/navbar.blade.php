@@ -23,8 +23,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" href={{ route('orders') }}>Order</a>
                 </li>
-                <a class="nav-link active" href={{ route('insight') }}>Insight</a>
+                <li class="nav-item">
+                    <a class="nav-link active" href={{ route('insight') }}>Insight</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href={{ route('checklist') }}>Checklist</a>
+                </li>
+                
             
             </ul>
         

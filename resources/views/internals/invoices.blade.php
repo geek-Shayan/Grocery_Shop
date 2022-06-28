@@ -1,8 +1,10 @@
 @extends('layouts.layout')
 
 @section('styles')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"> --}}
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/datatables.min.css"/>
     
 @endsection
 
@@ -76,13 +78,72 @@
 
 @section('javascripts')
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> --}}
 
-    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/datatables.min.js"></script>
+
 
     <script>
         $(document).ready( function () {
-        $('#datatable').DataTable();
+        $('#datatable').DataTable({
+            dom: 'Bfrtip',
+            buttons: 
+                [
+                    // 'copy', 'csv', 'excel', 'pdf', 'print'
+                    {
+                        extend: 'print',
+                        exportOptions: 
+                        {
+                            columns: ':visible'
+                        }
+                    },
+
+                    {
+                        extend: 'copy',
+                        exportOptions: 
+                        {
+                            columns: ':visible'
+                        }
+                    },
+
+                    {
+                        extend: 'csv',
+                        exportOptions: 
+                        {
+                            columns: ':visible'
+                        }
+                    },
+
+                    {
+                        extend: 'excel',
+                        exportOptions: 
+                        {
+                            columns: ':visible'
+                        }
+                    },
+
+                    {
+                        extend: 'pdf',
+                        exportOptions: 
+                        {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+
+                // MAKE COLUMNs INVISIBLE BY DEFULT 
+                // columnDefs: 
+                // [ 
+                //     {
+                //         targets: -1,
+                //         visible: false
+                //     } 
+                // ]
+            });
         } );
     </script>
     

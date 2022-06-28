@@ -76,3 +76,6 @@ Route::post('order', 'OrderController@saveOrder')->name('order.confirm');
 //INSIGHT
 Route::view('insight', 'internals/insight')->name('insight');
 
+//CHECKLIST
+Route::view('checklist', 'internals/checklist')->name('checklist');
+
