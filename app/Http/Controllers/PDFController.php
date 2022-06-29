@@ -13,7 +13,7 @@ use PDF;
 class PDFController extends Controller
 {
     //PDF GENERATE
-    public function generatePDF($invoice_id)
+    public function generateInvoicePDF($invoice_id)
     {
         $invoice = Invoice::find($invoice_id);
 
@@ -31,7 +31,7 @@ class PDFController extends Controller
 
 
     //PDF DOWNLOAD
-    public function downloadPDF($invoice_id)
+    public function downloadInvoicePDF($invoice_id)
     {
         $invoice = Invoice::find($invoice_id);
  
@@ -49,7 +49,7 @@ class PDFController extends Controller
 
 
     //PDF MAIL TO CUSTOMER
-    public function mailPDF($invoice_id)
+    public function mailInvoicePDF($invoice_id)
     {
         ////////////////////////////////
         //PDF CREATED, ATTACHED HERE AND SEND TO MAIL CLASS
@@ -87,4 +87,57 @@ class PDFController extends Controller
         return redirect('/invoices');
         // return redirect("/invoices/view/{$invoice_id}");
     }
+
+    
+    //PDF GENERATE
+    public function generateProductPDF($product_id)
+    {
+        $product = Product::find($product_id);
+        $date = date('m/d/Y');
+
+        $pdf = PDF::loadView('/pdfs/product_pdf', compact('date', 'product') );
+        return $pdf->stream("Grocery Shop Product {$product->sku}.pdf");
+        // return view('/pdfs/product_pdf');
+    }
+
+
+    //PDF DOWNLOAD
+    public function downloadProductPDF($product_id)
+    {
+        $product = Product::find($product_id);
+        $date = date('m/d/Y');
+
+        $pdf = PDF::loadView('/pdfs/product_pdf', compact('date', 'product') );
+        return $pdf->download("Grocery Shop Product {$product->sku}.pdf");
+        // return view('/pdfs/product_pdf');
+    }
+
+
+    //PDF MAIL TO CUSTOMER
+    public function mailProductPDF($product_id)
+    {
+        $product = Product::find($product_id);
+        $date = date('m/d/Y');
+
+        $pdf = PDF::loadView('/pdfs/product_pdf', compact('date', 'product') );
+        // return $pdf->download("Grocery Shop Product {$product->sku}.pdf");
+        // return view('/pdfs/product_pdf');
+
+        $data['product'] = $product;
+        $data['date'] = $date;
+        
+        /////send to an admin !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Mail::send('mails.product_mail', $data, function($message)use($product , $pdf) {
+            // $message->to($invoice->customer_email) /////send to an admin email !!!!!!!!!!
+            $message->to("admin@admin.com") /////demo !!!
+            ->subject("PRODUCT WITH PDF")
+            ->attachData($pdf->output(), "Grocery Shop Product {$product->sku}.pdf");
+        });
+
+        return redirect("/products/view/{$product_id}");
+
+         /////send to an admin !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
+
+
 }

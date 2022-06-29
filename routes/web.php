@@ -28,6 +28,21 @@ Route::post('products/new/save', 'ProductController@saveNew')->name('products.ne
 //PRODUCT VIEW INDIVIDUAL
 Route::get('products/view/{id}', 'ProductController@productView')->name('products.view');
 
+//PRODUCT VIEW INDIVIDUAL PDF
+Route::get('products/view/pdf/{id}', 'PDFController@generateProductPDF')->name('products.view.pdf');
+
+//PRODUCT VIEW INDIVIDUAL PDF DOWNLOAD
+Route::get('products/view/pdf/download/{id}', 'PDFController@downloadProductPDF')->name('products.view.pdf.download');
+
+//PRODUCT VIEW INDIVIDUAL PDF MAIL
+Route::get('products/view/pdf/email/{id}', 'PDFController@mailProductPDF')->name('products.view.pdf.email');
+
+
+
+
+
+
+
 //PRODUCT RESTOCK
 Route::get('products/restock/{id}', 'ProductController@restockProduct')->name('products.restock');
 Route::post('products/restock/{id}', 'ProductController@restockProductSave')->name('products.restock.save');
@@ -54,13 +69,13 @@ Route::get('invoices', 'InvoiceController@invoiceList')->name('invoices');
 Route::get('invoices/view/{id}', 'InvoiceController@invoiceView')->name('invoices.view');
 
 //INVOICE VIEW INDIVIDUAL PDF
-Route::get('invoices/view/pdf/{id}', 'PDFController@generatePDF')->name('invoices.view.pdf');
+Route::get('invoices/view/pdf/{id}', 'PDFController@generateInvoicePDF')->name('invoices.view.pdf');
 
 //INVOICE VIEW INDIVIDUAL PDF DOWNLOAD
-Route::get('invoices/view/pdf/download/{id}', 'PDFController@downloadPDF')->name('invoices.view.pdf.download');
+Route::get('invoices/view/pdf/download/{id}', 'PDFController@downloadInvoicePDF')->name('invoices.view.pdf.download');
 
 //INVOICE VIEW INDIVIDUAL PDF MAIL
-Route::get('invoices/view/pdf/email/{id}', 'PDFController@mailPDF')->name('invoices.view.pdf.email');
+Route::get('invoices/view/pdf/email/{id}', 'PDFController@mailInvoicePDF')->name('invoices.view.pdf.email');
 
 //UPDATE INVOICES
 Route::get('invoices/update/{id}', 'InvoiceController@updateInvoice')->name('invoices.update');

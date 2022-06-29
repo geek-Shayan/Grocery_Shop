@@ -10,16 +10,11 @@
 
     <div class="container" style="text-align: center" >
      
-        <a href="" class="btn btn-primary">View PDF</a>
-        {{-- {{ route('invoices.view.pdf', $invoice->id ) }} --}}
-        <a href="" class="btn btn-primary">Download PDF</a>
-        {{-- {{ route('invoices.view.pdf.download', $invoice->id ) }} --}}
-        <a href="" class="btn btn-primary">Email PDF</a>
-        {{-- {{ route('invoices.view.pdf.email', $invoice->id ) }} --}}
+        <a href={{ route('products.view.pdf', $product->id ) }} class="btn btn-primary">View PDF</a>
+        <a href={{ route('products.view.pdf.download', $product->id ) }} class="btn btn-primary">Download PDF</a>
+        <a href={{ route('products.view.pdf.email', $product->id ) }} class="btn btn-primary">Email PDF</a>
 
-        {{-- <a href="" class="btn btn-primary">Email PDF</a> --}}
         <a href="" class="btn btn-primary">Download IMAGE</a>
-        {{-- <a href="" class="btn btn-primary">Email PDF</a> --}}
 
         <a href={{ route('products.restock', $product->id ) }} class="btn btn-success">Restock</a>
         <a href={{ route('products.update', $product->id ) }} class="btn btn-warning">Update</a>
@@ -108,20 +103,6 @@
         </tr>
     
     </table> --}}
-
-    <br>
-    <br>
- 
-    {{-- <div class="container" align="center">
-         
-
-        <a href={{ route('invoices.view.pdf', $invoice->id ) }} class="btn btn-primary">View PDF</a>
-
-        <a href={{ route('invoices.view.pdf.download', $invoice->id ) }} class="btn btn-primary">Download PDF</a>
-
-        <a href={{ route('invoices.view.pdf.email', $invoice->id ) }} class="btn btn-primary">Email PDF</a>
-    </div> --}}
-
 
 
 @endsection

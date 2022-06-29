@@ -10,7 +10,7 @@
         .wrapper{
             display: grid;
             /* grid-auto-columns:100px; */
-            grid-template-columns: 30% 30% 30% ;
+            grid-template-columns: 33% 33% 34% ;
             gap: 1em;
         }
         .wrapper>div{   
@@ -30,19 +30,19 @@
                 <div class="col">
                     <h6 class="text-danger">gross profit</h6>
                     <h6 class="text-danger">can't sell more than the inventory</h6>
-                    <h6 class="text-danger">Order page bootstrp</h6>
+                    <h6 class="text-danger">Order page bootstrp [[[partial done]]]</h6>
                     <h6 class="text-danger">all view, pdf page bootstrp</h6>
                     <h6 class="text-danger">profit by month</h6>
                     <h6 class="text-danger">graph</h6>
                     <h6 class="text-danger">events and listeners </h6>
-                    <h6 class="text-danger">pdf of product view</h6>
-                    <h6 class="text-danger">pdf of product download</h6>
                     <h6 class="text-danger">image download</h6>
                     <h6 class="text-danger">admin authentication </h6>
                     <h6 class="text-danger">order quntity in slider (https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_type_range)</h6>
                     <h6 class="text-danger">javascripts</h6>
                 </div>
                 <div class="col">
+                    <h6 class="text-success">pdf of product view</h6>
+                    <h6 class="text-success">pdf of product download</h6>
                     <h6 class="text-success">profit in invoice</h6>
                     <h6 class="text-success">inventory management in db</h6>
                     <h6 class="text-success">inventory restock</h6>

@@ -2,11 +2,7 @@
 
 namespace App\Mail;
 
-
-
 use PDF;
-
-
 use App\Product;
 use App\Invoice;
 use App\SoldItem;
@@ -30,8 +26,8 @@ class InvoiceMail extends Mailable
     
     public $invoice;
     public $sold_items;
-    public $date;
-    public $pdf;
+    // public $date;
+    // public $pdf;
     
     public function __construct($invoice_id)  //, $pdf
     {

@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="container-fluid bg-success">
-        <h3>VIEW</h3>    
+        <h3>VIEW INVOICE</h3>    
     </div>
 
     <style>
