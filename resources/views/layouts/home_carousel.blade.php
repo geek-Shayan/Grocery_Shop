@@ -39,7 +39,7 @@
                         <div class="carousel-caption">
                             {{-- <h1 class="text-dark ">GROCERY SHOP</h1>  --}}
                             <h4 class="text-dark ">Fresh Mangoes</h4>
-                            <h3><a href="/order" class="btn btn-success "><b> Order Now !!!</b></a></h3>
+                            <h3><a href={{ route('orders') }} class="btn btn-success "><b> Order Now !!!</b></a></h3>
 
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                         <div class="carousel-caption">
                             {{-- <h1 class="text-dark ">GROCERY SHOP</h1>  --}}
                             <h4 class="text-dark ">Fresh Apples</h4>
-                            <h3><a href="/order" class="btn btn-success "><b> Order Now !!!</b></a></h3>
+                            <h3><a href={{ route('orders') }} class="btn btn-success "><b> Order Now !!!</b></a></h3>
 
                         </div> 
                     </div>
@@ -57,7 +57,7 @@
                         <div class="carousel-caption">
                             {{-- <h1 class="text-dark ">GROCERY SHOP</h1> --}}
                             <h4 class="text-dark ">Fresh Oranges</h4>
-                            <h3><a href="/order" class="btn btn-success"><b> Order Now !!!</b></a></h3>
+                            <h3><a href={{ route('orders') }} class="btn btn-success"><b> Order Now !!!</b></a></h3>
                         </div>  
                     </div>
                 </div>
