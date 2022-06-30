@@ -62,11 +62,11 @@
                         <td>DELETE</td> --}}
                         
                         {{-- "/invoices/view/{{$invoice->id}}" --}}
-                        <td><a href={{ route('invoices.view', $invoice->id ) }} class="btn btn-success">view</a></td>
+                        <td><a href={{ route('invoices.view', $invoice->id ) }} class="btn btn-sm btn-success">View</a></td>
                         {{-- "/invoices/update/{{$invoice->id}}" --}}
-                        <td><a href={{ route('invoices.update', $invoice->id ) }} class="btn btn-primary">update</a></td>
+                        <td><a href={{ route('invoices.update', $invoice->id ) }} class="btn btn-sm btn-primary">Update</a></td>
                         {{-- "/invoices/delete/{{$invoice->id}}" --}}
-                        <td><a href={{ route('invoices.delete', $invoice->id ) }} class="btn btn-danger" onclick="alert('Invoice Deleted !')">delete</a></td>
+                        <td><a href={{ route('invoices.delete', $invoice->id ) }} class="btn btn-sm btn-danger" onclick="alert('Invoice Deleted !')">Delete</a></td>
 
                     </tr>
                 @endforeach

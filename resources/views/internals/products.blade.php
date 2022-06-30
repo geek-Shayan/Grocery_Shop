@@ -15,10 +15,14 @@
         <h3>PRODUCTS</h3>
     </div>
         
-    <div class="container-fluid ">
+    <div class="container-fluid">
         <form align="center" action={{ route('products.new') }} method="post">
             {{@csrf_field()}}
-            <input type="submit" class="btn btn-block btn-dark " value=" New Item">
+            <div class="container" style="width: 30%">
+                <div class="d-grid" >
+                    <button type="submit" class="btn btn-lg btn-block btn-dark"><b>New Item</b></button>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -61,14 +65,14 @@
                     <tr>
                         <td align= "center">{{++$sl}}</td>
                         
-                        <td><img src="{{ asset('storage/app/images/'.$product->image) }}" alt="{{$product->name}}" title="{{$product->name}}" style="width:20%"></td>
+                        <td><img src="{{ asset('storage/app/images/'.$product->image) }}" alt="{{$product->sku}}" title="{{$product->name}}" height="30px" width="30px"></td>
                         
                         <td align= "left">{{$product->name}}</td>
                         <td align= "left">{{$product->sku}}</td>
                         <td align= "left">{{$product->description}}</td>
                         
                         @if ($product->available_quantity > 0)
-                        <td class="text-info" >{{$product->available_quantity}} pcs</td>   
+                            <td class="text-info" >{{$product->available_quantity}} pcs</td>   
                         @else
                             <td class="text-warning">Not available!</td>
                         @endif
@@ -77,10 +81,10 @@
                         <td align= "left">Tk {{$product->profit_range}} </td>
                         <td align= "left">Tk {{$product->selling_price}} </td>
                         
-                        <td><a href={{ route('products.view', $product->id ) }} class="btn btn-success">View</a></td>
-                        <td><a href={{ route('products.restock', $product->id ) }} class="btn btn-secondary">Restock</a></td>
-                        <td><a href={{ route('products.update', $product->id ) }} class="btn btn-primary">Update</a></td>
-                        <td><a href={{ route('products.delete', $product->id ) }} class="btn btn-danger" onclick="alert('Product Deleted !')" >Delete</a></td>
+                        <td><a href={{ route('products.view', $product->id ) }} class="btn btn-sm btn-success">View</a></td>
+                        <td><a href={{ route('products.restock', $product->id ) }} class="btn btn-sm btn-outline-warning">Restock</a></td>
+                        <td><a href={{ route('products.update', $product->id ) }} class="btn btn-sm btn-primary">Update</a></td>
+                        <td><a href={{ route('products.delete', $product->id ) }} class="btn btn-sm btn-danger" onclick="alert('Product Deleted !')" >Delete</a></td>
                     </tr>
                 @endforeach
             </tbody>
@@ -173,13 +177,13 @@
                 ],
 
                 // MAKE COLUMNs INVISIBLE BY DEFULT 
-                columnDefs: 
-                [ 
-                    {
-                        targets: -12, // image -12
-                        visible: false
-                    } 
-                ]
+                // columnDefs: 
+                // [ 
+                //     {
+                //         targets: -12, // image -12
+                //         visible: false
+                //     } 
+                // ]
     
             } );
         } );        
