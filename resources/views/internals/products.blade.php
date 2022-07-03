@@ -20,7 +20,7 @@
             {{@csrf_field()}}
             <div class="container" style="width: 30%">
                 <div class="d-grid" >
-                    <button type="submit" class="btn btn-lg btn-block btn-dark"><b>New Item</b></button>
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-info btn-dark"><b>New Item</b></button>
                 </div>
             </div>
         </form>
@@ -81,10 +81,10 @@
                         <td align= "left">Tk {{$product->profit_range}} </td>
                         <td align= "left">Tk {{$product->selling_price}} </td>
                         
-                        <td><a href={{ route('products.view', $product->id ) }} class="btn btn-sm btn-success">View</a></td>
-                        <td><a href={{ route('products.restock', $product->id ) }} class="btn btn-sm btn-outline-warning">Restock</a></td>
-                        <td><a href={{ route('products.update', $product->id ) }} class="btn btn-sm btn-primary">Update</a></td>
-                        <td><a href={{ route('products.delete', $product->id ) }} class="btn btn-sm btn-danger" onclick="alert('Product Deleted !')" >Delete</a></td>
+                        <td><a href={{ route('products.view', $product->id ) }} class="btn btn-sm btn-outline-dark btn-success">View</a></td>
+                        <td><a href={{ route('products.restock', $product->id ) }} class="btn btn-sm btn-outline-dark btn-warning">Restock</a></td>
+                        <td><a href={{ route('products.update', $product->id ) }} class="btn btn-sm btn-outline-dark btn-primary">Update</a></td>
+                        <td><a href={{ route('products.delete', $product->id ) }} class="btn btn-sm btn-outline-dark btn-danger" onclick="alert('Product Deleted !')" >Delete</a></td>
                     </tr>
                 @endforeach
             </tbody>
