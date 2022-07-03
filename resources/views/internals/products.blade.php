@@ -136,6 +136,7 @@
                     // 'copy', 'csv', 'excel', 'pdf', 'print'
                     {
                         extend: 'print',
+                        orientation: 'landscape',
                         exportOptions: 
                         {
                             columns: ':visible'
@@ -168,6 +169,8 @@
 
                     {
                         extend: 'pdf',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
                         exportOptions: 
                         {
                             columns: ':visible'
