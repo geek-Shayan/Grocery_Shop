@@ -51,11 +51,11 @@ class OrderController extends Controller
         foreach ($cart as $item)
         {
             /////////////////////////////////////////test
-            $valid_cart = request()->validate([
-                $item['product_id'] => 'required',
-                $item['quantity'] => 'required',
-                $item['selling_price'] => 'required',
-            ]);
+            // $valid_cart = request()->validate([
+            //     $item['product_id'] => 'required',
+            //     $item['quantity'] => 'required',
+            //     $item['selling_price'] => 'required',
+            // ]);
             /////////////////////////////////////////test
 
             $order = new SoldItem();

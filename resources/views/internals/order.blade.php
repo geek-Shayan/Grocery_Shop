@@ -1,6 +1,5 @@
 @extends('layouts.layout')
 
-{{-- $table->integer('profit')->after('total')->nullable(); --}}
 @section('content')
 
     <div class="container-fluid bg-success">
@@ -48,9 +47,71 @@
         .row:nth-child(odd){
             background-color: rgb(187, 160, 212)
         } */
+
+/*test HTML SNIPPET */
+        /* form {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 50px;
+        } */
+
+        .value-button {
+            display: inline-block;
+            border: 1px solid #ddd;
+            margin: 0px;
+            width: 40px;
+            /* height: 40px; */
+            text-align: center;
+            vertical-align: middle;
+            padding: 11px 0;
+            background: #eee;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .value-button:hover {
+            cursor: pointer;
+        }
+
+        form #decrease {
+            margin-right: -4px;
+            border-radius: 8px 0 0 8px;
+        }
+
+        form #increase {
+            margin-left: -4px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        form #input-wrap {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        input#number {
+            text-align: center;
+            border: none;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            margin: 0px;
+            width: 40px;
+            height: 40px;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+/*test HTML SNIPPET*/
     </style>
     
-
+{{-- SLIDERS? --}}
             {{-- <form oninput="x.value=parseInt(a.value)">
                 <input type="range" id="a" value="50"> 
                 +<input type="number" id="b" value="25">
@@ -62,8 +123,9 @@
                 <input type="range" id="vol" name="vol" min="0" max="50">
                 <input type="submit">
             </form> --}}
+{{-- SLIDERS? --}}
 
-        <form align= "center" action={{ route('order.confirm') }} method="post" onsubmit="return processCart()">
+        <form align= "center" action={{ route('order.confirm') }} method="post" onsubmit="return processCart()" >
         @csrf
 
 {{-- //////grids in the order list implement --}}
@@ -82,27 +144,18 @@
                 
             </div>
         </div> --}}
-
-
 {{-- //////grids in the order list implement --}}
 
 
-
-
-        {{-- <div class="container-fluid"> --}}
-        {{-- <div class="row "> --}}
-        {{-- <h1>customer Info</h1> --}}
-
-        {{-- </div> --}}
-
-        {{-- <div class="row bg-dark">
-            <div class="col"> --}}
                 <div class="container" style="width:100%">
 
                     <div class="row">
                         
                         <div class="col">
-                            <label style="text-justify:auto ">CUSTOMER INFO</label>
+                            <div class="container bg-secondary">
+                                <b class="text-light"> GRAND TOTAL</b>
+                                <h3><div class="text text-light bg-success" id="total"></div></h3>
+                            </div>
                         </div>
 
                         <div class="col">
@@ -161,10 +214,8 @@
 
                     </div>
                 </div>
-            {{-- </div>
-        </div> --}}
-    {{-- </div> --}}
-        
+
+{{-- old        --}}
              
             {{-- <table align= "center">
                 <tr>
@@ -193,73 +244,24 @@
                     <td><input type="date" name="date" id=""> </td>
                 </tr>
             </table> --}}
+
+{{-- old        --}}
             
             <br>
 
+{{-- TABLE WITH NEW FEATURES LIKE DYNAMIC TOTAL CALCULTION --}}
 
-{{-- test ? --}}
-            {{-- <div class="container">
-                <div class="row">
-                    <div class="col">PRODUCTS</div>
-                    <div class="col">QUANTITY</div>
-                    <div class="col">PRICE</div>
-                </div>
-                
-                @foreach ($products as $product)
-                
-                    <div class="row">
-                        
-                        @if ($product->available_quantity > 0)
-                            <div class="col">
-                                <input align="left" type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
-                                {{$product->name}} [{{$product->sku}}] {{$product->description}}
-                            </div>
-
-                            <div class="col">
-                                <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}">
-                            </div>
-
-                            <div class="col">
-                                <input type="number" placeholder="{{$product->selling_price}}   (P-{{$product->purchase_price}})" id="selling_price{{$product->id}}">
-                            </div>
-                        
-                        @else
-                            <div class="col text-danger">
-                                {{$product->name}} [{{$product->sku}}] {{$product->description}}
-                            </div>
-
-                            <div class="col text-danger">
-                                Not available!
-                            </div>
-
-                            <div class="col text-danger">
-                                Not available!
-                            </div>
-
-                        @endif
-                        
-                    </div>
-                @endforeach
-            </div> --}}
-            
-
-
-
-            
-            
-{{-- test ? --}}
-
-
-            <table align="center">
+            <table align="center" >
                 <tr>
                     <th>PRODUCTS</th>
                     <th>QUANTITY</th>
                     <th>PRICE</th>
+                    <th>TOTAL</th>
                     <th></th>
                 </tr>
 
                 @foreach ($products as $product)
-                <tr>
+                <tr onchange =" calculateTotal()">
                     @if ($product->available_quantity > 0)
                     <th >
                         <div class="form-check form-switch">
@@ -272,31 +274,38 @@
                     </th>
                     
                     <td>
-                        <div class="form-gruop">
+                        {{-- <div class="form-gruop">
                             <div class="form-floating">
                                 <input type="number" name="quantity" value="{{old('quantity')}}" id="quantity{{$product->id}}" class="form-control">
                                 <label for="quantity"><h6>QUANTITY  [{{$product->available_quantity}}]</h6></label>
             
-                                {{-- @if (count($errors) > 0)
+                                @if (count($errors) > 0)
                                     <div class="alert alert-info alert-dismissible fade show">
                                         <button type="button" for="submit" class="btn-close" data-bs-dismiss="alert"></button>
                                         <strong>Wait! </strong>{{$errors->first('quantity')}}
                                     </div>
-                                @endif --}}
+                                @endif
                             </div>
-                        </div>
+                        </div> --}}
 
 {{-- 333? --}}
-                        {{-- <div class="form-group input-group">
+                        <div class="form-group input-group">
                             <label class="input-group-text" for="quantity"><b>Pcs</b></label>
-                            <input class="form-control" type="number" name="quantity" placeholder="[QUANTITY  [{{$product->available_quantity}}]" value="{{old('quantity')}}" id="quantity{{$product->id}}">
+                            <input class="form-control" type="number" name="quantity" placeholder="quantity  [{{$product->available_quantity}}]" value="{{old('quantity')}}" id="quantity{{$product->id}}">
+                        </div>
+
+                        {{-- <div class="form-group input-group">
+                            <div class="value-button btn btn-outline-danger " id="decrease{{$product->id}}" onclick="decreaseValue()" value="Decrease Value">-</div>
+                            <input type="number" id="number" value="0" min="1" max="100">
+                            <div class="value-button btn btn-outline-success " id="increase{{$product->id}}" onclick="increaseValue()" value="Increase Value">+</div>
                         </div> --}}
+
 {{-- 333? --}}                        
                         
                         {{-- <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}"> --}}
                     </td>  
                     
-                    <td>
+                    <td >
                         {{-- <div class="form-gruop">
                             <div class="form-floating">
                                 <input type="number" name="selling_price" value="{{old('selling_price')}}" id="selling_price{{$product->id}}" class="form-control">
@@ -313,20 +322,26 @@
 
 {{-- 333? --}}
                         <div class="form-group input-group">
-                            <label class="input-group-text" for="selling_price"><b>৳</b></label>
-                            <input class="form-control" type="number" name="selling_price" placeholder="[price {{$product->selling_price}}~{{$product->purchase_price}}]" value="{{old('selling_price')}}" id="selling_price{{$product->id}}">
+                            <label class="input-group-text" for="selling_price"><b>$</b></label>
+                            <input class="form-control" type="number" name="selling_price" placeholder="price [{{$product->selling_price}}~{{$product->purchase_price}}]" value="{{old('selling_price')}}" id="selling_price{{$product->id}}">
                         </div>
 {{-- 333? --}}
                         {{-- <input type="number" placeholder="{{$product->selling_price}}   (P-{{$product->purchase_price}})" id="selling_price{{$product->id}}"> --}}
                     </td> 
                     <td>
+                        {{-- DYNAMIC TOTAL CALC --}}
+                            <b><div class="text text-light bg-success" id="totalByProduct{{$product->id}}" >--</div></b>
+                            {{-- <div id="total{{$product->id}}"></div> --}}
+                            {{-- <div id="total"></div> --}}
+                    </td>
+                    <td>
                         @if (count($errors) > 0)
-                            <div class="alert alert-info alert-dismissible fade show">
+                            <div class="alert alert-info alert-dismissible fade show ">
                                 <button type="button" for="submit" class="btn-close" data-bs-dismiss="alert"></button>
-                                <strong>Wait! </strong>{{$errors->first('selling_price')}}
+                                <strong>Wait! </strong>
                             </div>
                         @endif
-                    </td>
+                    </td>        
 
 
 {{-- else state --}}
@@ -336,27 +351,17 @@
                             <input class="form-check-input product-checkboxes" name="name" value="{{old('name')}}" type="checkbox" id="" disabled>
                             <label class="form-check-label text-danger" for="name">{{$product->name}} [{{$product->sku}}] {{$product->description}}</label>
                         </div>
-                    
-                    {{-- class="text-danger">{{$product->name}} [{{$product->sku}}] {{$product->description}} --}}
 
                     </th>
+
                     <td class="text-danger">Not available!</td>
                     <td class="text-danger">Not available!</td>
-                
-                    {{-- <td class="text-danger">
-                        <div class="toast show">
-                            <div class="toast-header">
-                            <strong class="me-auto text-danger ">Not available!</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                            </div> --}}
-                            {{-- <div class="toast-body">
-                            <p>Some text inside the toast body</p>
-                            </div> --}}
-                        {{-- </div>
-                    </td> --}}
+                    <td class="text-danger">Null!</td>
+                    <td></td>
 
                     @endif
-                    
+
+{{-- ORIGINAL FIRST LINES OF ORDERS --}}
                     {{-- <th >
                         <input align="left" type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
                         {{$product->name}} [{{$product->sku}}] {{$product->description}}
@@ -373,25 +378,74 @@
                 </tr>
                 @endforeach
             </table>
+{{-- TABLE WITH NEW FEATURES LIKE DYNAMIC TOTAL CALCULTION --}}
 
             <input type="hidden" id="cart" name="cart">
             
             <br>
-            <input type="submit" value="Confirm">
+            <input class="btn btn-success" type="submit" value="Confirm">
         </form>
 
+{{-- html SNIPPET EX --}}
+        <form>
+            <div class="value-button btn btn-outline-danger " id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+            <input type="number" id="number" value="0" min="1" max="100">
+            <div class="value-button btn btn-outline-success " id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+        </form>
+
+{{-- BOOTSTRAP SNIPPET EX --}}
+        {{-- <div class="container">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="10" min="1" max="100">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
 
 
     <script>
+        function calculateTotal()
+        {
+            let total = 0;
+            let product_checkboxes = document.getElementsByClassName("product-checkboxes");           
+
+            for(let i=0; i<product_checkboxes.length; i++)
+            {
+                // console.log(product_checkboxes[i].checked);           
+                if(product_checkboxes[i].checked)
+                {   
+                    let quantity = document.getElementById("quantity" + product_checkboxes[i].id).value;
+                    let selling_price = document.getElementById("selling_price" + product_checkboxes[i].id).value;
+                    
+                    document.getElementById("totalByProduct" + product_checkboxes[i].id).innerHTML = quantity * selling_price;
+                    
+                    total += (quantity * selling_price);
+                    // document.getElementById("total"+product_checkboxes[i].id).innerHTML = total;
+                    document.getElementById("total").innerHTML = total;
+                }
+            }
+            document.getElementById("total").innerHTML = total;
+
+        }
 
         function processCart()
         {
             let product_checkboxes = document.getElementsByClassName("product-checkboxes");
-
             let cart = [];
 
             // console.log(product_checkboxes);
-
             for(let i=0; i<product_checkboxes.length; i++)
             {
                 // console.log(product_checkboxes[i].checked);
@@ -402,25 +456,39 @@
                         quantity: document.getElementById("quantity" + product_checkboxes[i].id).value,
                         selling_price: document.getElementById("selling_price" + product_checkboxes[i].id).value
                     }
-
+                    
                     cart.push(obj);
                 }
             }
 
             // console.log(cart);
-
             if(cart.length > 0)
             {
                 cart = JSON.stringify(cart);
-
                 document.getElementById("cart").value = cart;
-
                 return true;
             }
             else
             {
                 return false;
             }
+        }
+
+        function increaseValue()
+        {
+            var value = parseInt(document.getElementById("number").value, 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            document.getElementById("number").value = value;
+        }
+
+        function decreaseValue()
+        {
+            var value = parseInt(document.getElementById('number').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value < 1 ? value = 1 : '';
+            value--;
+            document.getElementById('number').value = value;
         }
 
     </script>
