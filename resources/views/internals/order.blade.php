@@ -2,8 +2,12 @@
 
 @section('styles')
     
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/datatables.min.css"/>
+    
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/r-2.3.0/sc-2.0.7/sl-1.4.0/datatables.min.css"/> --}}
 
 @endsection
+
 
 @section('content')
 
@@ -12,7 +16,7 @@
     </div>
 
     <style>
-        table {
+        /* table {
           border-collapse: collapse;
           width: 80%;
         }
@@ -28,7 +32,7 @@
 
         tr:nth-child(1) {
           background-color: #35947f;
-        }
+        } */
 
         .wrapper{
             display: grid;
@@ -251,7 +255,7 @@
 
 {{-- BOOTSTAP row col --}}
 
-        <div class="container p-3 "  >
+        {{-- <div class="container p-3 "  >
             <div class="wrapper ">
                 <div class="row">
                     @if (count($errors) > 0)
@@ -267,11 +271,10 @@
                     <div class="col-md-3 text-light fw-bold">QUANTITY</div>
                     <div class="col-md-3 text-light fw-bold">PRICE</div>
                     <div class="col-md-1 text-light fw-bold">TOTAL</div>
-                    {{-- <div class="col fw-bold">W</div> --}}
                 </div>
 
                 @foreach ($products as $product)
-                    <div class="row p-1 d-flex justify-content-center" onchange =" calculateTotal()">
+                    <div class="row p-1 d-flex justify-content-center" onchange =" calculateTotalByProduct(); calculateGrandTotal();">
                         @if ($product->available_quantity > 0)
                             <div class="col-md-5 fw-bold">
                                 <div class="form-check form-switch">
@@ -313,141 +316,148 @@
                     </div>
                 @endforeach
             </div>
-        </div>
+        </div> --}}
 {{-- BOOTSTAP row col --}}
             
 
 
 {{-- TABLE WITH NEW FEATURES LIKE DYNAMIC TOTAL CALCULTION --}}
 
-        <table align="center" >
-            <tr>
-                <th>PRODUCTS</th>
-                <th>QUANTITY</th>
-                <th>PRICE</th>
-                <th>TOTAL</th>
-                <th></th>
-            </tr>
-
-            @foreach ($products as $product)
-            <tr onchange =" calculateTotal()">
-                @if ($product->available_quantity > 0)
-                <th >
-                    <div class="form-check form-switch">
-                        <input class="form-check-input product-checkboxes" name="name" value="{{old('name')}}" type="checkbox" id="{{$product->id}}" >
-                        <label class="form-check-label" for="name">{{$product->name}} [{{$product->sku}}] {{$product->description}}</label>
-                    </div>
-
-                    {{-- <input align="left" type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
-                    {{$product->name}} [{{$product->sku}}] {{$product->description}} --}}
-                </th>
-                
-                <td>
-                    {{-- <div class="form-gruop">
-                        <div class="form-floating">
-                            <input type="number" name="quantity" value="{{old('quantity')}}" id="quantity{{$product->id}}" class="form-control">
-                            <label for="quantity"><h6>QUANTITY  [{{$product->available_quantity}}]</h6></label>
-        
-                            @if (count($errors) > 0)
-                                <div class="alert alert-info alert-dismissible fade show">
-                                    <button type="button" for="submit" class="btn-close" data-bs-dismiss="alert"></button>
-                                    <strong>Wait! </strong>{{$errors->first('quantity')}}
-                                </div>
-                            @endif
-                        </div>
-                    </div> --}}
-
-{{-- 333? --}}
-                    <div class="form-group input-group">
-                        <label class="input-group-text" for="quantity"><b>Pcs</b></label>
-                        <input class="form-control" type="number" name="quantity" placeholder="quantity  [{{$product->available_quantity}}]" value="{{old('quantity')}}" id="quantity{{$product->id}}">
-                    </div>
-
-                    {{-- <div class="form-group input-group">
-                        <div class="value-button btn btn-outline-danger " id="decrease{{$product->id}}" onclick="decreaseValue()" value="Decrease Value">-</div>
-                        <input type="number" id="number" value="0" min="1" max="100">
-                        <div class="value-button btn btn-outline-success " id="increase{{$product->id}}" onclick="increaseValue()" value="Increase Value">+</div>
-                    </div> --}}
-
-{{-- 333? --}}                        
-                    
-                    {{-- <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}"> --}}
-                </td>  
-                
-                <td >
-                    {{-- <div class="form-gruop">
-                        <div class="form-floating">
-                            <input type="number" name="selling_price" value="{{old('selling_price')}}" id="selling_price{{$product->id}}" class="form-control">
-                            <label for="selling_price"><h6>PRICE  [{{$product->selling_price}}~{{$product->purchase_price}}]</h6></label>
-        
-                            @if (count($errors) > 0)
-                                <div class="alert alert-info alert-dismissible fade show">
-                                    <button type="button" for="submit" class="btn-close" data-bs-dismiss="alert"></button>
-                                    <strong>Wait! </strong>{{$errors->first('selling_price')}}
-                                </div>
-                            @endif
-                        </div>
-                    </div> --}}
-
-{{-- 333? --}}
-                    <div class="form-group input-group">
-                        <label class="input-group-text" for="selling_price"><b>$</b></label>
-                        <input class="form-control" type="number" name="selling_price" placeholder="price [{{$product->selling_price}}~{{$product->purchase_price}}]" value="{{old('selling_price')}}" id="selling_price{{$product->id}}">
-                    </div>
-{{-- 333? --}}
-                    {{-- <input type="number" placeholder="{{$product->selling_price}}   (P-{{$product->purchase_price}})" id="selling_price{{$product->id}}"> --}}
-                </td> 
-                <td>
-                    {{-- DYNAMIC TOTAL CALC --}}
-                        <b><div class="text text-light bg-success" id="totalByProduct{{$product->id}}" >--</div></b>
-                        {{-- <div id="total{{$product->id}}"></div> --}}
-                        {{-- <div id="total"></div> --}}
-                </td>
-                <td>
+    <div class="container ">
+        <table align="center" class="table table-striped table-hover " id="datatable" >
+            <thead>
+                <tr>
+                    <th>PRODUCTS</th>
+                    <th>QUANTITY</th>
+                    <th>PRICE</th>
+                    <th>TOTAL</th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr>
                     @if (count($errors) > 0)
                         <div class="alert alert-info alert-dismissible fade show ">
                             <button type="button" for="submit" class="btn-close" data-bs-dismiss="alert"></button>
-                            <strong>Wait! </strong>
+                            <strong>Wait!  </strong>Insufficient Data.
                         </div>
                     @endif
-                </td>        
-
-
-{{-- else state --}}
-                @else
-                <th>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input product-checkboxes" name="name" value="{{old('name')}}" type="checkbox" id="" disabled>
-                        <label class="form-check-label text-danger" for="name">{{$product->name}} [{{$product->sku}}] {{$product->description}}</label>
-                    </div>
-
-                </th>
-
-                <td class="text-danger">Not available!</td>
-                <td class="text-danger">Not available!</td>
-                <td class="text-danger">Null!</td>
-                <td></td>
-
-                @endif
-
-{{-- ORIGINAL FIRST LINES OF ORDERS --}}
-                {{-- <th >
-                    <input align="left" type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
-                    {{$product->name}} [{{$product->sku}}] {{$product->description}}
-                </th> --}}
+                </tr>
                 
-                {{-- <td >
-                    <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}" >
-                </td> --}}
-                
-                {{-- <td>
-                    <input type="number" placeholder="{{$product->selling_price}}   (P-{{$product->purchase_price}})" id="selling_price{{$product->id}}" > 
-                </td> --}}
-                
-{{-- ORIGINAL FIRST LINES OF ORDERS --}}
-            </tr>
-            @endforeach
+                @foreach ($products as $product)
+                <tr onchange ="calculateTotalByProduct(); calculateGrandTotal();">
+                    @if ($product->available_quantity > 0)
+                    <th >
+                        <div class="form-check form-switch">
+                            <input class="form-check-input product-checkboxes" name="name" value="{{old('name')}}" type="checkbox" id="{{$product->id}}" >
+                            <label class="form-check-label" for="name">{{$product->name}} [{{$product->sku}}] {{$product->description}}</label>
+                        </div>
+    
+                        {{-- <input align="left" type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
+                        {{$product->name}} [{{$product->sku}}] {{$product->description}} --}}
+                    </th>
+                    
+                    <td>
+                        {{-- <div class="form-gruop">
+                            <div class="form-floating">
+                                <input type="number" name="quantity" value="{{old('quantity')}}" id="quantity{{$product->id}}" class="form-control">
+                                <label for="quantity"><h6>QUANTITY  [{{$product->available_quantity}}]</h6></label>
+            
+                                @if (count($errors) > 0)
+                                    <div class="alert alert-info alert-dismissible fade show">
+                                        <button type="button" for="submit" class="btn-close" data-bs-dismiss="alert"></button>
+                                        <strong>Wait! </strong>{{$errors->first('quantity')}}
+                                    </div>
+                                @endif
+                            </div>
+                        </div> --}}
+    
+    {{-- 333? --}}
+                        <div class="form-group input-group">
+                            <label class="input-group-text" for="quantity"><b>Pcs</b></label>
+                            <input class="form-control" type="number" name="quantity" placeholder="quantity  [{{$product->available_quantity}}]" value="{{old('quantity')}}" id="quantity{{$product->id}}">
+                        </div>
+    
+                        {{-- <div class="form-group input-group">
+                            <div class="value-button btn btn-outline-danger " id="decrease{{$product->id}}" onclick="decreaseValue()" value="Decrease Value">-</div>
+                            <input type="number" id="number" value="0" min="1" max="100">
+                            <div class="value-button btn btn-outline-success " id="increase{{$product->id}}" onclick="increaseValue()" value="Increase Value">+</div>
+                        </div> --}}
+    
+    {{-- 333? --}}                        
+                        
+                        {{-- <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}"> --}}
+                    </td>  
+                    
+                    <td >
+                        {{-- <div class="form-gruop">
+                            <div class="form-floating">
+                                <input type="number" name="selling_price" value="{{old('selling_price')}}" id="selling_price{{$product->id}}" class="form-control">
+                                <label for="selling_price"><h6>PRICE  [{{$product->selling_price}}~{{$product->purchase_price}}]</h6></label>
+            
+                                @if (count($errors) > 0)
+                                    <div class="alert alert-info alert-dismissible fade show">
+                                        <button type="button" for="submit" class="btn-close" data-bs-dismiss="alert"></button>
+                                        <strong>Wait! </strong>{{$errors->first('selling_price')}}
+                                    </div>
+                                @endif
+                            </div>
+                        </div> --}}
+    
+    {{-- 333? --}}
+                        <div class="form-group input-group">
+                            <label class="input-group-text" for="selling_price"><b>$</b></label>
+                            <input class="form-control" type="number" name="selling_price" placeholder="price [{{$product->selling_price}}~{{$product->purchase_price}}]" value="{{old('selling_price')}}" id="selling_price{{$product->id}}">
+                        </div>
+    {{-- 333? --}}
+                        {{-- <input type="number" placeholder="{{$product->selling_price}}   (P-{{$product->purchase_price}})" id="selling_price{{$product->id}}"> --}}
+                    </td> 
+                    <td>
+                        {{-- DYNAMIC TOTAL CALC --}}
+                            <b><div class="text text-light bg-success" id="totalByProduct{{$product->id}}" ></div></b>
+                    </td>
+                    <td>
+                        
+                    </td>        
+    
+    
+    {{-- else state --}}
+                    @else
+                    <th>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input product-checkboxes" name="name" value="{{old('name')}}" type="checkbox" id="" disabled>
+                            <label class="form-check-label text-danger" for="name">{{$product->name}} [{{$product->sku}}] {{$product->description}}</label>
+                        </div>
+    
+                    </th>
+                    <td><div class="text-danger">Not available!</div></td>
+                    <td><div class="text-danger">Not available!</div></td>
+                    <td><div class="text-danger">Null!</div></td>
+                    <td></td>
+    
+                    @endif
+    
+    {{-- ORIGINAL FIRST LINES OF ORDERS --}}
+                    {{-- <th >
+                        <input align="left" type="checkbox" id="{{$product->id}}" class="product-checkboxes" value="{{$product->id}}">
+                        {{$product->name}} [{{$product->sku}}] {{$product->description}}
+                    </th> --}}
+                    
+                    {{-- <td >
+                        <input type="number" placeholder="{{$product->available_quantity}}" id="quantity{{$product->id}}" >
+                    </td> --}}
+                    
+                    {{-- <td>
+                        <input type="number" placeholder="{{$product->selling_price}}   (P-{{$product->purchase_price}})" id="selling_price{{$product->id}}" > 
+                    </td> --}}
+                    
+    {{-- ORIGINAL FIRST LINES OF ORDERS --}}
+                </tr>
+                @endforeach
+            </tbody>
         </table>
+    </div>
 {{-- TABLE WITH NEW FEATURES LIKE DYNAMIC TOTAL CALCULTION --}}
 
         <input type="hidden" id="cart" name="cart">
@@ -457,11 +467,11 @@
     </form>
 
 {{-- html SNIPPET EX --}}
-    <form>
+    {{-- <form>
         <div class="value-button btn btn-outline-danger " id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
         <input type="number" id="number" value="0" min="1" max="100">
         <div class="value-button btn btn-outline-success " id="increase" onclick="increaseValue()" value="Increase Value">+</div>
-    </form>
+    </form> --}}
 
 {{-- BOOTSTRAP SNIPPET EX --}}
         {{-- <div class="container">
@@ -491,9 +501,8 @@
 @section('javascripts')
 
     <script>
-        function calculateTotal()
+        function calculateTotalByProduct()
         {
-            let total = 0;
             let product_checkboxes = document.getElementsByClassName("product-checkboxes");           
 
             for(let i=0; i<product_checkboxes.length; i++)
@@ -505,14 +514,30 @@
                     let selling_price = document.getElementById("selling_price" + product_checkboxes[i].id).value;
                     
                     document.getElementById("totalByProduct" + product_checkboxes[i].id).innerHTML = quantity * selling_price;
-                    
+                }
+            }
+        }
+
+        function calculateGrandTotal()
+        {
+            // let total = document.getElementById("total").value;
+            // document.getElementById("total").innerHTML = total;
+            
+            let total = 0;
+            let product_checkboxes = document.getElementsByClassName("product-checkboxes");           
+
+            for(let i=0; i<product_checkboxes.length; i++)
+            {
+                // console.log(product_checkboxes[i].checked);           
+                if(product_checkboxes[i].checked)
+                {   
+                    let quantity = document.getElementById("quantity" + product_checkboxes[i].id).value;
+                    let selling_price = document.getElementById("selling_price" + product_checkboxes[i].id).value;
+                        
                     total += (quantity * selling_price);
-                    // document.getElementById("total"+product_checkboxes[i].id).innerHTML = total;
-                    document.getElementById("total").innerHTML = total;
                 }
             }
             document.getElementById("total").innerHTML = total;
-
         }
 
         function processCart()
@@ -567,6 +592,90 @@
 
     </script>
     
+
+    
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/datatables.min.js"></script>
+    
+    {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/r-2.3.0/sc-2.0.7/sl-1.4.0/datatables.min.js"></script> --}}
+    
+
+
+    <script>
+        // $(document).ready( function () {
+        // $('#datatable').DataTable();
+        // } );
+        
+        $(document).ready(function() {
+        $('#datatable').DataTable( 
+            {
+                scrollY: 300,
+                paging: false,
+                // dom: 'Bfrtip',
+                // buttons: 
+                // [
+                    // 'copy', 'csv', 'excel', 'pdf', 'print'
+                    // {
+                    //     extend: 'print',
+                    //     orientation: 'landscape',
+                    //     exportOptions: 
+                    //     {
+                    //         columns: ':visible'
+                    //     }
+                    // },
+
+                    // {
+                    //     extend: 'copy',
+                    //     exportOptions: 
+                    //     {
+                    //         columns: ':visible'
+                    //     }
+                    // },
+
+                    // {
+                    //     extend: 'csv',
+                    //     exportOptions: 
+                    //     {
+                    //         columns: ':visible'
+                    //     }
+                    // },
+
+                    // {
+                    //     extend: 'excel',
+                    //     exportOptions: 
+                    //     {
+                    //         columns: ':visible'
+                    //     }
+                    // },
+
+                    // {
+                    //     extend: 'pdf',
+                    //     orientation: 'landscape',
+                    //     pageSize: 'A4',
+                    //     exportOptions: 
+                    //     {
+                    //         columns: ':visible'
+                    //     }
+                    // },
+                    // 'colvis'
+                // ],
+
+                // MAKE COLUMNs INVISIBLE BY DEFULT 
+                // columnDefs: 
+                // [ 
+                //     {
+                //         targets: -12, // image -12
+                //         visible: false
+                //     } 
+                // ]
+    
+            } 
+            );
+        } );        
+
+    </script>
 @endsection
-
-
