@@ -28,11 +28,12 @@
         
         tr:nth-child(even) {
           background-color: #D6EEEE;
-        }
+        } */
 
         tr:nth-child(1) {
-          background-color: #35947f;
-        } */
+          /* background-color: #35947f; */
+          background-color: #429e3e;
+        }
 
         .wrapper{
             display: grid;
