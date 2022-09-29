@@ -379,6 +379,17 @@
                             <label class="input-group-text" for="quantity"><b>Pcs</b></label>
                             <input class="form-control" type="number" name="quantity" placeholder="quantity  [{{$product->available_quantity}}]" value="{{old('quantity')}}" id="quantity{{$product->id}}">
                         </div>
+    {{-- range test --}}
+                        {{-- <div class="form-group input-group">
+                            <input type="range" id="quantity{{$product->id}}" name="quantity" value="0" min="0" max="{{$product->available_quantity}}" onchange="updateTextInput(this.value);">
+                            <label class="input-group-text" for="quantity"><b>Pcs</b></label>
+                            <input class="form-control" type="number"  placeholder="quantity  [{{$product->available_quantity}}]" value="" id="quantity_show{{$product->id}}">
+                        </div> --}}
+
+                        {{-- <input type="range" name="rangeInput" min="0" max="100" onchange="updateTextInput(this.value);">
+                        <input type="text" id="textInput" value=""> --}}
+
+    {{-- range test --}}
     
                         {{-- <div class="form-group input-group">
                             <div class="value-button btn btn-outline-danger " id="decrease{{$product->id}}" onclick="decreaseValue()" value="Decrease Value">-</div>
@@ -502,6 +513,24 @@
 @section('javascripts')
 
     <script>
+        // //test
+        // function updateTextInput(val) {
+        //   document.getElementById('textInput').value=val; 
+        // }
+
+        // function updateTextInput(val) 
+        // {
+        //     let product_checkboxes = document.getElementsByClassName("product-checkboxes");           
+
+        //     for(let i=0; i<product_checkboxes.length; i++)
+        //     {         
+        //         // if(product_checkboxes[i].checked)
+        //         // {   
+        //             document.getElementById("quantity_show" + product_checkboxes[i].id).value=val; 
+        //         // }
+        //     }
+        // }
+
         function calculateTotalByProduct()
         {
             let product_checkboxes = document.getElementsByClassName("product-checkboxes");           
